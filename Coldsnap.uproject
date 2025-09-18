@@ -1,8 +1,18 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "{B4FC1FBE-4530-E9A6-71C2-45A3D965F3DB}",
+	"EngineAssociation": "{4F270B62-4016-51FB-BA31-E88D66E84FEE}",
 	"Category": "",
 	"Description": "",
+	"Modules": [
+		{
+			"Name": "Coldsnap",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"GameplayAbilities"
+			]
+		}
+	],
 	"Plugins": [
 		{
 			"Name": "ModelingToolsEditorMode",
@@ -13,6 +23,10 @@
 		},
 		{
 			"Name": "GameplayStateTree",
+			"Enabled": true
+		},
+		{
+			"Name": "GameplayAbilities",
 			"Enabled": true
 		}
 	]
