@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
-#include "MyAbilitySystemComponent.generated.h"
+#include "PlayerAbilitySystemComponent.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class COLDSNAP_API UMyAbilitySystemComponent : public UAbilitySystemComponent
+class COLDSNAP_API UPlayerAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
 	
