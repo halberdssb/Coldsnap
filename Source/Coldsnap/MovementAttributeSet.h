@@ -10,6 +10,9 @@
 /**
  * 
  */
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FAttributeChangedEvent, UAttributeSet*, AttributeSet, float, OldValue, float, NewValue);
+
 UCLASS()
 class COLDSNAP_API UMovementAttributeSet : public UAttributeSet
 {
@@ -45,4 +48,22 @@ public:
 	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, AirSpeed);
 	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, AirAccel);
 	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, AirFriction);
+
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+
+	virtual void PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue) override;
+
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnGroundSpeedChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnGroundAccelChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnGroundFrictionChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnAirSpeedChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnAirAccelChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnAirFrictionChanged;
+	
 };

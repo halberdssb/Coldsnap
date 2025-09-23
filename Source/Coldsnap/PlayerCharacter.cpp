@@ -8,6 +8,7 @@
 #include "MovementAttributeSet.h"
 #include "PlayerAbilitySystemComponent.h"
 #include "DynamicMesh/DynamicMesh3.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 // Sets default values
@@ -26,7 +27,7 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
-	UE_LOG(LogTemp, Warning, TEXT("APlayerCharacter::BeginPlay"));
+	CharacterMovementComp = GetOwner()->FindComponentByClass<UCharacterMovementComponent>();
 }
 
 // Called every frame

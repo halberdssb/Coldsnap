@@ -25,6 +25,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities)
 	TObjectPtr<class UPlayerAbilitySystemComponent> PlayerAbilitySystemComp;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<class UCharacterMovementComponent> CharacterMovementComp;	
+	
 	UPROPERTY()
 	TObjectPtr<class UHealthAttributeSet> HealthSet;
 
