@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "HealthAttributeSet.h"
 #include "IHittable.h"
 #include "IKnockbackable.h"
 #include "GameFramework/Character.h"
@@ -22,7 +23,14 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities)
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<UHealthAttributeSet> HealthSet;
+	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
