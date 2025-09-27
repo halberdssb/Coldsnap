@@ -8,6 +8,7 @@
 #include "IKnockbackable.h"
 #include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
+#include "Runtime/AIModule/Classes/AIController.h"
 #include "BaseEnemy.generated.h"
 
 UCLASS()
