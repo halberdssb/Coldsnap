@@ -21,5 +21,5 @@ class COLDSNAP_API IHittable
 	GENERATED_BODY()
 public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Hit")
-	void Hit();
+	void Hit(float damage, FVector knockbackForce);
 };

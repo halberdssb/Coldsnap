@@ -20,6 +20,9 @@ APlayerCharacter::APlayerCharacter()
 	PlayerAbilitySystemComp = CreateDefaultSubobject<UPlayerAbilitySystemComponent>(TEXT("PlayerAbilitySystemComponent"));
 	HealthSet = CreateDefaultSubobject<UHealthAttributeSet>(TEXT("HealthAttributeSet"));
 	MovementSet = CreateDefaultSubobject<UMovementAttributeSet>(TEXT("MovementAttributeSet"));
+
+	// Set team ID to 2 - enemy to enemies
+	SetGenericTeamId(FGenericTeamId(2));
 }
 
 // Called when the game starts or when spawned
@@ -47,5 +50,13 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 UAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
 {
 	return PlayerAbilitySystemComp;
+}
+
+void APlayerCharacter::SetGenericTeamId(const FGenericTeamId& NewTeamID)
+{
+	if (TeamID  != NewTeamID)
+	{
+		TeamID  = NewTeamID;
+	}
 }
 

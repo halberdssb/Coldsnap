@@ -33,7 +33,7 @@ void ABaseEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 }
 
-void ABaseEnemy::Hit_Implementation()
+void ABaseEnemy::Hit_Implementation(float damage, FVector knockbackForce)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Enemy hit!"));
 }

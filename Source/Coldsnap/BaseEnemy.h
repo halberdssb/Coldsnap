@@ -8,7 +8,6 @@
 #include "IKnockbackable.h"
 #include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
-#include "Runtime/AIModule/Classes/AIController.h"
 #include "BaseEnemy.generated.h"
 
 UCLASS()
@@ -38,6 +37,6 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	void Hit_Implementation() override;
+	void Hit_Implementation(float damage, FVector knockbackForce) override;
 	void ApplyKnockback_Implementation(FVector knockbackDirection, float knockbackForce) override;
 };
