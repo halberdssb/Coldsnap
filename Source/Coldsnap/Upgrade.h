@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "GameplayEffect.h"
 #include "Upgrade.generated.h"
 
 
@@ -15,6 +16,15 @@ class COLDSNAP_API UUpgrade : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UUpgrade();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<class UGameplayEffect> armsGameplayEffect;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<class UGameplayEffect> legsGameplayEffect;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<class UGameplayEffect> fuelGameplayEffect;
 
 protected:
 	// Called when the game starts
