@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "UpgradeGameplayEffect.h"
 #include "GameplayEffect.h"
 #include "Upgrade.generated.h"
 
@@ -18,13 +19,16 @@ public:
 	UUpgrade();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<class UGameplayEffect> armsGameplayEffect;
+	FString UpgradeName;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<class UGameplayEffect> legsGameplayEffect;
+	TSubclassOf<class UUpgradeGameplayEffect> armsGameplayEffect;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<class UGameplayEffect> fuelGameplayEffect;
+	TSubclassOf<class UUpgradeGameplayEffect> legsGameplayEffect;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<class UUpgradeGameplayEffect> fuelGameplayEffect;
 
 protected:
 	// Called when the game starts
