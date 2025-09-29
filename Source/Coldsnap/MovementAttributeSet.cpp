@@ -11,6 +11,8 @@ UMovementAttributeSet::UMovementAttributeSet()
 	InitAirSpeed(600);
 	InitAirAccel(6.0f);
 	InitAirFriction(7.0f);
+	InitDashForce(1);
+	InitAttackSpeed(1);
 }
 
 void UMovementAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -48,6 +50,14 @@ void UMovementAttributeSet::PostAttributeChange(const FGameplayAttribute& Attrib
 	else if (Attribute == GetAirFrictionAttribute())
 	{
 		OnAirFrictionChanged.Broadcast(this, OldValue, NewValue);
+	}
+	else if (Attribute == GetDashForceAttribute())
+	{
+		OnDashForceChanged.Broadcast(this, OldValue, NewValue);
+	}
+	else if (Attribute == GetAttackSpeedAttribute())
+	{
+		OnAttackSpeedChanged.Broadcast(this, OldValue, NewValue);
 	}
 }
 

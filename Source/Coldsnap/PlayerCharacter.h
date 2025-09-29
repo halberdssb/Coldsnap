@@ -40,6 +40,11 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float dashDuration = 0.5;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FVector dashForce = FVector(2000,2000,0);
+	FVector baseDashForce = FVector(2000,2000,0);
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float attackSpeed = 1;
 
 public:	
 	// Called every frame
@@ -57,6 +62,7 @@ public:
 
 	void UpdateWalkSpeed(const FOnAttributeChangeData& Data);
 	void UpdateDashDuration(const FOnAttributeChangeData& Data);
+	void UpdateAttackSpeed(const FOnAttributeChangeData& Data);
 
 private:
 	FGenericTeamId TeamID;

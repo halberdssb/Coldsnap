@@ -38,9 +38,12 @@ void APlayerCharacter::BeginPlay()
 	// Bind character movement walk speed to GAS attribute
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetGroundSpeedAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateWalkSpeed);
-	// Bind character movement walk speed to GAS attribute
-	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetDashDurationAttribute())
+	// Bind character movement dash speed to GAS attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetDashForceAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateDashDuration);
+	// Bind character movement attack speed to GAS attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetAttackSpeedAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateAttackSpeed);
 }
 
 // Called every frame
@@ -82,6 +85,11 @@ void APlayerCharacter::UpdateWalkSpeed(const FOnAttributeChangeData& Data)
 
 void APlayerCharacter::UpdateDashDuration(const FOnAttributeChangeData& Data)
 {
-	dashDuration = Data.NewValue;
+	dashForce = baseDashForce * Data.NewValue;
+}
+
+void APlayerCharacter::UpdateAttackSpeed(const FOnAttributeChangeData& Data)
+{
+	attackSpeed = Data.NewValue;
 }
 
