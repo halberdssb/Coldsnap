@@ -45,6 +45,10 @@ protected:
 	FVector baseDashForce = FVector(2000,2000,0);
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float attackSpeed = 1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool allowDashDuringJump;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float verticalKnockbackMultiplier = 1;
 
 public:	
 	// Called every frame
@@ -63,6 +67,9 @@ public:
 	void UpdateWalkSpeed(const FOnAttributeChangeData& Data);
 	void UpdateDashDuration(const FOnAttributeChangeData& Data);
 	void UpdateAttackSpeed(const FOnAttributeChangeData& Data);
+	void UpdateAllowJumpDuringDash(const FOnAttributeChangeData& Data);
+	void UpdateJumpForce(const FOnAttributeChangeData& Data);
+	void UpdateVerticalKnockbackMultiplier(const FOnAttributeChangeData& Data);
 
 private:
 	FGenericTeamId TeamID;

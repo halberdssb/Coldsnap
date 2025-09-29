@@ -47,6 +47,15 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData AttackSpeed;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData DashJumpValue;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData JumpForce;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData VerticalKnockbackMultiplier;
 	
 	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, GroundSpeed);
 	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, GroundAccel);
@@ -56,6 +65,9 @@ public:
 	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, AirFriction);
 	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, DashForce);
 	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, AttackSpeed);
+	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, DashJumpValue);
+	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, JumpForce);
+	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, VerticalKnockbackMultiplier);
 	
 
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
@@ -78,5 +90,11 @@ public:
 	FAttributeChangedEvent OnDashForceChanged;
 	UPROPERTY(BlueprintAssignable)
 	FAttributeChangedEvent OnAttackSpeedChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnDashJumpValueChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnJumpForceChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnVerticalKnockbackMultiplierChanged;
 	
 };

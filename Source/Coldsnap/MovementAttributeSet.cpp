@@ -13,6 +13,9 @@ UMovementAttributeSet::UMovementAttributeSet()
 	InitAirFriction(7.0f);
 	InitDashForce(1);
 	InitAttackSpeed(1);
+	InitDashJumpValue(0);
+	InitJumpForce(420);
+	InitVerticalKnockbackMultiplier(1);
 }
 
 void UMovementAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -58,6 +61,18 @@ void UMovementAttributeSet::PostAttributeChange(const FGameplayAttribute& Attrib
 	else if (Attribute == GetAttackSpeedAttribute())
 	{
 		OnAttackSpeedChanged.Broadcast(this, OldValue, NewValue);
+	}
+	else if (Attribute == GetDashJumpValueAttribute())
+	{
+		OnDashJumpValueChanged.Broadcast(this, OldValue, NewValue);
+	}
+	else if (Attribute == GetJumpForceAttribute())
+	{
+		OnJumpForceChanged.Broadcast(this, OldValue, NewValue);
+	}
+	else if (Attribute == GetVerticalKnockbackMultiplierAttribute())
+	{
+		OnVerticalKnockbackMultiplierChanged.Broadcast(this, OldValue, NewValue);
 	}
 }
 

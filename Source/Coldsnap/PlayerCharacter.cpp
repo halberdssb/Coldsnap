@@ -44,6 +44,15 @@ void APlayerCharacter::BeginPlay()
 	// Bind character movement attack speed to GAS attribute
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetAttackSpeedAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateAttackSpeed);
+	// Bind character movement jump out of dash value to GAS attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetDashJumpValueAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateAllowJumpDuringDash);
+	// Bind character movement jump force to GAS attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetJumpForceAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateJumpForce);
+	// Bind character movement vertical knockback multiplier to GAS attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetVerticalKnockbackMultiplierAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateVerticalKnockbackMultiplier);
 }
 
 // Called every frame
@@ -92,4 +101,20 @@ void APlayerCharacter::UpdateAttackSpeed(const FOnAttributeChangeData& Data)
 {
 	attackSpeed = Data.NewValue;
 }
+
+void APlayerCharacter::UpdateAllowJumpDuringDash(const FOnAttributeChangeData& Data)
+{
+	allowDashDuringJump = Data.NewValue > 0;
+}
+
+void APlayerCharacter::UpdateJumpForce(const FOnAttributeChangeData& Data)
+{
+	CharacterMovementComp->JumpZVelocity = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateVerticalKnockbackMultiplier(const FOnAttributeChangeData& Data)
+{
+	verticalKnockbackMultiplier = Data.NewValue;
+}
+
 
