@@ -5,10 +5,10 @@
 
 UMovementAttributeSet::UMovementAttributeSet()
 {
-	InitGroundSpeed(30.0f);
+	InitGroundSpeed(600);
 	InitGroundAccel(6);
 	InitGroundFriction(10);
-	InitAirSpeed(35.0f);
+	InitAirSpeed(600);
 	InitAirAccel(6.0f);
 	InitAirFriction(7.0f);
 }

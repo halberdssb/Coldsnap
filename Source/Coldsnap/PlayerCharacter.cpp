@@ -18,9 +18,12 @@ APlayerCharacter::APlayerCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	PlayerAbilitySystemComp = CreateDefaultSubobject<UPlayerAbilitySystemComponent>(TEXT("PlayerAbilitySystemComponent"));
+	CharacterMovementComp = ACharacter::GetCharacterMovement();
 	HealthSet = CreateDefaultSubobject<UHealthAttributeSet>(TEXT("HealthAttributeSet"));
 	MovementSet = CreateDefaultSubobject<UMovementAttributeSet>(TEXT("MovementAttributeSet"));
-
+	PlayerAbilitySystemComp->AddAttributeSetSubobject<UHealthAttributeSet>(HealthSet);
+	PlayerAbilitySystemComp->AddAttributeSetSubobject<UMovementAttributeSet>(MovementSet);
+	
 	// Set team ID to 2 - enemy to enemies
 	SetGenericTeamId(FGenericTeamId(2));
 }
@@ -30,7 +33,14 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
-	CharacterMovementComp = GetOwner()->FindComponentByClass<UCharacterMovementComponent>();
+	CharacterMovementComp->MaxWalkSpeed = 600;
+
+	// Bind character movement walk speed to GAS attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetGroundSpeedAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateWalkSpeed);
+	// Bind character movement walk speed to GAS attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetDashDurationAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateDashDuration);
 }
 
 // Called every frame
@@ -38,6 +48,11 @@ void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void APlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 }
 
 // Called to bind functionality to input
@@ -58,5 +73,15 @@ void APlayerCharacter::SetGenericTeamId(const FGenericTeamId& NewTeamID)
 	{
 		TeamID  = NewTeamID;
 	}
+}
+
+void APlayerCharacter::UpdateWalkSpeed(const FOnAttributeChangeData& Data)
+{
+	CharacterMovementComp->MaxWalkSpeed = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateDashDuration(const FOnAttributeChangeData& Data)
+{
+	dashDuration = Data.NewValue;
 }
 

@@ -41,6 +41,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData AirFriction;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData DashDuration;
 	
 	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, GroundSpeed);
 	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, GroundAccel);
@@ -48,6 +51,8 @@ public:
 	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, AirSpeed);
 	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, AirAccel);
 	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, AirFriction);
+	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, DashDuration);
+	
 
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 
@@ -65,5 +70,7 @@ public:
 	FAttributeChangedEvent OnAirAccelChanged;
 	UPROPERTY(BlueprintAssignable)
 	FAttributeChangedEvent OnAirFrictionChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnDashDurationChanged;
 	
 };
