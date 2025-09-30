@@ -17,7 +17,7 @@ TArray<AActor*> UMeleeAttackGameplayAbility::CreateMeleeHitbox(FVector position,
 	// Draw debug sphere to show hitbox
 	if (drawDebugSphere)
 	{
-		DrawDebugSphere(GetWorld(), position, radius, 20, FColor::Red, false, 0.5);
+		//DrawDebugSphere(GetWorld(), position, radius, 20, FColor::Red, false, 0.5);
 	}
 
 	// Object types to trace for - only pawns
