@@ -35,7 +35,7 @@ void ABaseEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 void ABaseEnemy::Hit_Implementation(float damage, FVector knockbackForce)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Enemy hit!"));
+	//UE_LOG(LogTemp, Warning, TEXT("Enemy hit!"));
 }
 
 void ABaseEnemy::ApplyKnockback_Implementation(FVector knockbackDirection, float knockbackForce)
@@ -46,6 +46,5 @@ void ABaseEnemy::ApplyKnockback_Implementation(FVector knockbackDirection, float
 	capsuleComponent->AddImpulse(knockbackDirection * knockbackForce);
 	UE_LOG(LogTemp, Warning, TEXT("PUSH"));
 }
-
 
 

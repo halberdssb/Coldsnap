@@ -10,6 +10,7 @@ UUpgrade::UUpgrade()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
+	dropChance = 0.2;
 	// ...
 }
 

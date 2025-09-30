@@ -30,6 +30,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class UUpgradeGameplayEffect> fuelGameplayEffect;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float dropChance;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

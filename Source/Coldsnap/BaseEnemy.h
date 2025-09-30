@@ -6,6 +6,7 @@
 #include "HealthAttributeSet.h"
 #include "IHittable.h"
 #include "IKnockbackable.h"
+#include "Upgrade.h"
 #include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
 #include "BaseEnemy.generated.h"
@@ -39,4 +40,7 @@ public:
 
 	void Hit_Implementation(float damage, FVector knockbackForce) override;
 	void ApplyKnockback_Implementation(FVector knockbackDirection, float knockbackForce) override;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = Drops)
+	void DropItemsOnDeath();
 };
