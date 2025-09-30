@@ -12,7 +12,7 @@ UMovementAttributeSet::UMovementAttributeSet()
 	InitAirAccel(6.0f);
 	InitAirFriction(7.0f);
 	InitDashForce(1);
-	InitAttackSpeed(1);
+	InitAttackSpeed(1.4);
 	InitDashJumpValue(0);
 	InitJumpForce(420);
 	InitVerticalKnockbackMultiplier(1);
