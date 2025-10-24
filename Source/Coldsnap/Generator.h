@@ -7,6 +7,12 @@
 #include "GameFramework/Actor.h"
 #include "Generator.generated.h"
 
+/**
+ * Generator interactable that helps activate drill on each layer when hit
+ *
+ * Jeff Stevenson
+ * 10.24.25
+ */
 UCLASS()
 class COLDSNAP_API AGenerator : public AActor, public IHittable
 {
@@ -24,5 +30,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// IHittable implementation - currently implemented in blueprint
 	void Hit_Implementation(float damage, FVector knockbackForce) override;
 };

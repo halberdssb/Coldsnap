@@ -7,18 +7,19 @@
 #include "UpgradeGameplayEffect.generated.h"
 
 /**
- * 
+ * Handles an individual attach point/consume effect for a given upgrade
+ *
+ * Jeff Stevenson
+ * 10.24.25
  */
+
 UCLASS()
 class COLDSNAP_API UUpgradeGameplayEffect : public UGameplayEffect
 {
 	GENERATED_BODY()
 
 public:
-
+	// Tooltip field to be edited in inspector field in blueprints - displayed by equipment widget to describe effect
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FString tooltip;
-
-	/*UFUNCTION(BlueprintCallable, Category = "Upgrade")
-	FString GetTooltip() const { return tooltip; } */
 };

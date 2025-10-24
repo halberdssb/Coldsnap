@@ -27,6 +27,6 @@ void AGenerator::Tick(float DeltaTime)
 
 void AGenerator::Hit_Implementation(float damage, FVector knockbackForce)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("Enemy hit!"));
+	
 }
 

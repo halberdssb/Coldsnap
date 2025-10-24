@@ -3,16 +3,16 @@
 
 #include "HealthAttributeSet.h"
 
+/*
+ * GAS Attribute Set for health
+ * 
+ * Jeff Stevenson
+ * 10.24.25
+ */
+
 UHealthAttributeSet::UHealthAttributeSet()
 {
 	InitHealth(100.0f);
 	InitMaxHealth(100.0f);
 }
-
-/*void UHealthAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(UHealthAttributeSet, Health);
-	DOREPLIFETIME(UHealthAttributeSet, MaxHealth);
-}*/
 

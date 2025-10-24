@@ -5,26 +5,31 @@
 
 #include "AbilitySystemComponent.h"
 #include "HealthAttributeSet.h"
-#include "MovementAttributeSet.h"
+#include "PlayerMovementAttributeSet.h"
 #include "PlayerAbilitySystemComponent.h"
 #include "DynamicMesh/DynamicMesh3.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
+/*
+ * Default player class for Coldsnap
+ *
+ * Jeff Stevenson
+ * 10.24.25
+ */
 
-// Sets default values
 APlayerCharacter::APlayerCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	// add GAS attributes and ability system component
 	PlayerAbilitySystemComp = CreateDefaultSubobject<UPlayerAbilitySystemComponent>(TEXT("PlayerAbilitySystemComponent"));
 	CharacterMovementComp = ACharacter::GetCharacterMovement();
 	HealthSet = CreateDefaultSubobject<UHealthAttributeSet>(TEXT("HealthAttributeSet"));
-	MovementSet = CreateDefaultSubobject<UMovementAttributeSet>(TEXT("MovementAttributeSet"));
+	MovementSet = CreateDefaultSubobject<UPlayerMovementAttributeSet>(TEXT("MovementAttributeSet"));
 	PlayerAbilitySystemComp->AddAttributeSetSubobject<UHealthAttributeSet>(HealthSet);
-	PlayerAbilitySystemComp->AddAttributeSetSubobject<UMovementAttributeSet>(MovementSet);
+	PlayerAbilitySystemComp->AddAttributeSetSubobject<UPlayerMovementAttributeSet>(MovementSet);
 	
-	// Set team ID to 2 - enemy to enemies
+	// Set team ID to 2 - make enemies view player as separate team
 	SetGenericTeamId(FGenericTeamId(2));
 }
 
@@ -35,6 +40,11 @@ void APlayerCharacter::BeginPlay()
 	PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
 	CharacterMovementComp->MaxWalkSpeed = 600;
 
+	SubscribeToAttributeChangeEvents();
+}
+
+void APlayerCharacter::SubscribeToAttributeChangeEvents()
+{
 	// Bind character movement walk speed to GAS attribute
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetGroundSpeedAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateWalkSpeed);
@@ -62,6 +72,7 @@ void APlayerCharacter::Tick(float DeltaTime)
 
 }
 
+// Handles GAS replication
 void APlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -74,11 +85,13 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 }
 
+// Retrusn Gameplay Ability System
 UAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
 {
 	return PlayerAbilitySystemComp;
 }
 
+// Sets player team ID to specific value
 void APlayerCharacter::SetGenericTeamId(const FGenericTeamId& NewTeamID)
 {
 	if (TeamID  != NewTeamID)
@@ -86,6 +99,8 @@ void APlayerCharacter::SetGenericTeamId(const FGenericTeamId& NewTeamID)
 		TeamID  = NewTeamID;
 	}
 }
+
+// On Attribute Changed functions for GAS attributes:
 
 void APlayerCharacter::UpdateWalkSpeed(const FOnAttributeChangeData& Data)
 {

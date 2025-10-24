@@ -7,9 +7,13 @@
 #include "AbilitySystemComponent.h"
 #include "HealthAttributeSet.generated.h"
 
-/**
+/*
+ * GAS Attribute Set for health
  * 
+ * Jeff Stevenson
+ * 10.24.25
  */
+
 UCLASS()
 class COLDSNAP_API UHealthAttributeSet : public UAttributeSet
 {
@@ -18,12 +22,12 @@ class COLDSNAP_API UHealthAttributeSet : public UAttributeSet
 public:
 
 	UHealthAttributeSet();
-
-	//void UHealthAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
+	// Current health - used for dealing damage/healing/etc
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData Health;
 
+	// Maximum health - should not be changed by damage/other temporary values, only max health changes
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData MaxHealth;
 	

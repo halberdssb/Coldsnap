@@ -6,8 +6,11 @@
 #include "AbilitySystemComponent.h"
 #include "PlayerAbilitySystemComponent.generated.h"
 
-/**
- * 
+/*
+ * Custom Player Ability System Component
+ *
+ * Jeff Stevenson
+ * 10.24.25
  */
 UCLASS()
 class COLDSNAP_API UPlayerAbilitySystemComponent : public UAbilitySystemComponent

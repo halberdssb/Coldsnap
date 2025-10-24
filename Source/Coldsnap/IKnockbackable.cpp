@@ -3,3 +3,9 @@
 
 #include "IKnockbackable.h"
 
+/**
+ * (U)Interface for actors that can receive knockback from attacks
+ *
+ * Jeff Stevenson
+ * 10.24.25
+ */

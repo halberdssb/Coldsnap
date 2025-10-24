@@ -1,25 +1,27 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MovementAttributeSet.h"
+#include "PlayerMovementAttributeSet.h"
 
-UMovementAttributeSet::UMovementAttributeSet()
+UPlayerMovementAttributeSet::UPlayerMovementAttributeSet()
 {
-	InitGroundSpeed(600);
-	InitGroundAccel(6);
-	InitGroundFriction(10);
-	InitAirSpeed(600);
-	InitAirAccel(6.0f);
-	InitAirFriction(7.0f);
-	InitDashForce(1);
-	InitAttackSpeed(1.4);
-	InitDashJumpValue(0);
-	InitJumpForce(420);
-	InitVerticalKnockbackMultiplier(1);
+	// Initialize default values for all attributes
+	InitGroundSpeed(BaseGroundSpeed);
+	InitGroundAccel(BaseGroundAccel);
+	InitGroundFriction(BaseGroundFriction);
+	InitAirSpeed(BaseAirSpeed);
+	InitAirAccel(BaseAirAccel);
+	InitAirFriction(BaseAirFriction);
+	InitDashForce(BaseDashForce);
+	InitAttackSpeed(BaseAttackSpeed);
+	InitDashJumpValue(BaseDashJumpValue);
+	InitJumpForce(BaseJumpForce);
+	InitVerticalKnockbackMultiplier(BaseVerticalKnockbackMultiplier);
 }
 
-void UMovementAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
+void UPlayerMovementAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
+	// Clamp speed to > 0
 	if (Attribute == GetGroundSpeedAttribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.0f, NewValue);
@@ -28,8 +30,10 @@ void UMovementAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribu
 	Super::PreAttributeChange(Attribute, NewValue);
 }
 
-void UMovementAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
+void UPlayerMovementAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
 {
+	// Fire on changed event for the changed atrribute
+	
 	if (Attribute == GetGroundSpeedAttribute())
 	{
 		OnGroundSpeedChanged.Broadcast(this, OldValue, NewValue);
