@@ -9,16 +9,23 @@
 #include "Upgrade.h"
 #include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
-#include "BaseEnemy.generated.h"
+#include "Enemy.generated.h"
+
+/**
+ * Base enemy class that implements hittable and knockbackable interfaces
+ *
+ * Jeff Stevenson
+ * 10.24.25
+ */
 
 UCLASS()
-class COLDSNAP_API ABaseEnemy : public ACharacter, public IHittable, public IKnockbackable
+class COLDSNAP_API AEnemy : public ACharacter, public IHittable, public IKnockbackable
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
-	ABaseEnemy();
+	AEnemy();
 
 protected:
 	// Called when the game starts or when spawned
@@ -26,21 +33,24 @@ protected:
 
 public:
 
+	// GAS properties
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UHealthAttributeSet> HealthSet;
 	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Hittable/Knockbackable interface implementation
 	void Hit_Implementation(float damage, FVector knockbackForce) override;
 	void ApplyKnockback_Implementation(FVector knockbackDirection, float knockbackForce) override;
 
+	// Handles logic to drop upgrades on death -
+	// currently drops on hit becasue death not implemented yet
 	UFUNCTION(BlueprintImplementableEvent, Category = Drops)
 	void DropItemsOnDeath();
 };

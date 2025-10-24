@@ -2,7 +2,7 @@
 
 #include "MeleeAttackGameplayAbility.h"
 
-#include "BaseEnemy.h"
+#include "Enemy.h"
 #include "IHittable.h"
 #include "IKnockbackable.h"
 #include "Kismet/KismetSystemLibrary.h"

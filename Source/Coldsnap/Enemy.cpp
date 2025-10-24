@@ -1,50 +1,53 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BaseEnemy.h"
+#include "Enemy.h"
 
 // Sets default values
-ABaseEnemy::ABaseEnemy()
+AEnemy::AEnemy()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	// set up GAS systems
 	HealthSet = CreateDefaultSubobject<UHealthAttributeSet>(TEXT("Health"));
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+	AbilitySystemComponent->AddAttributeSetSubobject<UHealthAttributeSet>(HealthSet);
 }
 
 // Called when the game starts or when spawned
-void ABaseEnemy::BeginPlay()
+void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
 // Called every frame
-void ABaseEnemy::Tick(float DeltaTime)
+void AEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 }
 
 // Called to bind functionality to input
-void ABaseEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
 
-void ABaseEnemy::Hit_Implementation(float damage, FVector knockbackForce)
+// currently unimplemented - should apply damage to health attribute
+void AEnemy::Hit_Implementation(float damage, FVector knockbackForce)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("Enemy hit!"));
+	
 }
 
-void ABaseEnemy::ApplyKnockback_Implementation(FVector knockbackDirection, float knockbackForce)
+void AEnemy::ApplyKnockback_Implementation(FVector knockbackDirection, float knockbackForce)
 {
+	// Applies physics knockback force to capsule component on enemy
 	UCapsuleComponent* capsuleComponent = GetCapsuleComponent();
 
 	capsuleComponent->SetAllPhysicsLinearVelocity(FVector(0, 0, 0));
 	capsuleComponent->AddImpulse(knockbackDirection * knockbackForce);
-	UE_LOG(LogTemp, Warning, TEXT("PUSH"));
 }
 
 
