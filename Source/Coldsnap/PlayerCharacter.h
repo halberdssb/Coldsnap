@@ -11,6 +11,13 @@
 #include "GenericTeamAgentInterface.h"
 #include "PlayerCharacter.generated.h"
 
+/*
+ * Default player class for Coldsnap
+ *
+ * Jeff Stevenson
+ * 10.24.25
+ */
+
 UCLASS()
 class COLDSNAP_API APlayerCharacter : public ACharacter, public IAbilitySystemInterface, public IGenericTeamAgentInterface
 {
@@ -20,12 +27,10 @@ public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
 
-
-
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	// GAS & Component Variables
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities)
 	TObjectPtr<class UPlayerAbilitySystemComponent> PlayerAbilitySystemComp;
 
@@ -36,8 +41,9 @@ protected:
 	TObjectPtr<class UHealthAttributeSet> HealthSet;
 
 	UPROPERTY()
-	TObjectPtr<class UMovementAttributeSet> MovementSet;
+	TObjectPtr<class UPlayerMovementAttributeSet> MovementSet;
 
+	// Blueprint values changed by GAS attributes
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float dashDuration = 0.5;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -50,26 +56,34 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float verticalKnockbackMultiplier = 1;
 
+	// Subscribes all GAS Attribute functions to their respective Attributes
+	void SubscribeToAttributeChangeEvents();
+
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	
+
+	// Handles GAS replication
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// returns GAS component
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
+	// get and set team ID - used for enemy perception
 	virtual void SetGenericTeamId(const FGenericTeamId& NewTeamID) override;
 	virtual FGenericTeamId GetGenericTeamId() const override { return TeamID; }
 
+	// On GAS Attribute changed functions - subscribed to attribute change delegates in constructor
 	void UpdateWalkSpeed(const FOnAttributeChangeData& Data);
 	void UpdateDashDuration(const FOnAttributeChangeData& Data);
 	void UpdateAttackSpeed(const FOnAttributeChangeData& Data);
 	void UpdateAllowJumpDuringDash(const FOnAttributeChangeData& Data);
 	void UpdateJumpForce(const FOnAttributeChangeData& Data);
 	void UpdateVerticalKnockbackMultiplier(const FOnAttributeChangeData& Data);
+
+	
 
 private:
 	FGenericTeamId TeamID;

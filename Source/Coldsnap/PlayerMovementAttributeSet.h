@@ -5,25 +5,24 @@
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
 #include "AbilitySystemComponent.h"
-#include "MovementAttributeSet.generated.h"
+#include "PlayerMovementAttributeSet.generated.h"
 
 /**
- * 
+ * GAS Attributes for Player Movement
  */
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FAttributeChangedEvent, UAttributeSet*, AttributeSet, float, OldValue, float, NewValue);
 
 UCLASS()
-class COLDSNAP_API UMovementAttributeSet : public UAttributeSet
+class COLDSNAP_API UPlayerMovementAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
 
 public:
 
-	UMovementAttributeSet();
-
-	//void UHealthAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	UPlayerMovementAttributeSet();
 	
+	// Movement attributes 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData GroundSpeed;
 
@@ -56,20 +55,22 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData VerticalKnockbackMultiplier;
-	
-	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, GroundSpeed);
-	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, GroundAccel);
-	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, GroundFriction);
-	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, AirSpeed);
-	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, AirAccel);
-	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, AirFriction);
-	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, DashForce);
-	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, AttackSpeed);
-	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, DashJumpValue);
-	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, JumpForce);
-	ATTRIBUTE_ACCESSORS_BASIC(UMovementAttributeSet, VerticalKnockbackMultiplier);
+
+	// Define attribute accessors for all attributes
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, GroundSpeed);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, GroundAccel);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, GroundFriction);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, AirSpeed);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, AirAccel);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, AirFriction);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, DashForce);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, AttackSpeed);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, DashJumpValue);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, JumpForce);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, VerticalKnockbackMultiplier);
 	
 
+	// attribute changed functions
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 
 	virtual void PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue) override;
@@ -96,5 +97,18 @@ public:
 	FAttributeChangedEvent OnJumpForceChanged;
 	UPROPERTY(BlueprintAssignable)
 	FAttributeChangedEvent OnVerticalKnockbackMultiplierChanged;
-	
+
+private:
+	// default values for attributes
+	float BaseGroundSpeed = 600;
+	float BaseGroundAccel = 6;
+	float BaseGroundFriction = 10;
+	float BaseAirSpeed = 600;
+	float BaseAirAccel = 6.0;
+	float BaseAirFriction = 7.0;
+	float BaseDashForce = 1;
+	float BaseAttackSpeed = 1.4;
+	float BaseDashJumpValue = 0;
+	float BaseJumpForce = 420;
+	float BaseVerticalKnockbackMultiplier = 1;
 };

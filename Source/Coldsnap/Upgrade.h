@@ -8,6 +8,12 @@
 #include "GameplayEffect.h"
 #include "Upgrade.generated.h"
 
+/**
+ * Interactable upgrade item with multiple effects to be chosen from
+ *
+ * Jeff Stevenson
+ * 10.24.25
+ */
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class COLDSNAP_API UUpgrade : public UActorComponent
@@ -18,9 +24,11 @@ public:
 	// Sets default values for this component's properties
 	UUpgrade();
 
+	// Displayed upgrade name in upgrade UI in-game
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString UpgradeName;
 
+	// All possible selectable effects
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class UUpgradeGameplayEffect> armsGameplayEffect;
 
@@ -30,16 +38,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class UUpgradeGameplayEffect> fuelGameplayEffect;
 
+	// Chance for the upgrade to be dropped by an enemy -
+	// should eventually be moved to enemy-specific drop tables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float dropChance;
 
 protected:
-	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-		
+public:		
 };

@@ -2,3 +2,10 @@
 
 
 #include "IHittable.h"
+
+/**
+ * (U) Interface for hittable actors
+ *
+ * Jeff Stevenson
+ * 10.24.25
+ */

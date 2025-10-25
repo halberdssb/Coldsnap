@@ -7,7 +7,10 @@
 #include "IHittable.generated.h"
 
 /**
- * 
+ * (U) Interface for hittable actors
+ *
+ * Jeff Stevenson
+ * 10.24.25
  */
 
 UINTERFACE(MinimalAPI, Blueprintable)
@@ -20,6 +23,7 @@ class COLDSNAP_API IHittable
 {
 	GENERATED_BODY()
 public:
+	// overrideable hit function - called by attacks/hit sources when actor is hit
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Hit")
 	void Hit(float damage, FVector knockbackForce);
 };

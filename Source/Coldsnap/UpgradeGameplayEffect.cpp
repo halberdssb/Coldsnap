@@ -3,3 +3,9 @@
 
 #include "UpgradeGameplayEffect.h"
 
+/**
+ * Handles an individual attach point/consume effect for a given upgrade
+ *
+ * Jeff Stevenson
+ * 10.24.25
+ */
