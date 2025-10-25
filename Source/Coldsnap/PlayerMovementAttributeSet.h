@@ -9,6 +9,9 @@
 
 /**
  * GAS Attributes for Player Movement
+ *
+ * Jeff Stevenson
+ * 10.25.25
  */
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FAttributeChangedEvent, UAttributeSet*, AttributeSet, float, OldValue, float, NewValue);
