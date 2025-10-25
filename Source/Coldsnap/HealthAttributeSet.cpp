@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "GameplayEffectExtension.h"
 #include "HealthAttributeSet.h"
+#include "GameplayEffectExtension.h"
 
 /*
  * GAS Attribute Set for health
