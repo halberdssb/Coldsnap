@@ -65,12 +65,18 @@ void APlayerCharacter::SubscribeToAttributeChangeEvents()
 	// Bind character movement vertical knockback multiplier to GAS attribute
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetVerticalKnockbackMultiplierAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateVerticalKnockbackMultiplier);
+	// Bind character movement gravity scale to GAS Attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetGravityScaleAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateGravityScale);
+	// Bind character movement air friciton to GAS Attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetAirFrictionAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateAirFriction);
 	// Bind event to heat meter changed
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(HeatSet->GetHeatAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateHeat);
 	// Bind event to max heat meter changed
-	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(HeatSet->GetHeatAttribute())
-		.AddUObject(this, &APlayerCharacter::UpdateHeat);
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(HeatSet->GetMaxHeatAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateMaxHeat);
 }
 
 // Called every frame
@@ -148,6 +154,16 @@ void APlayerCharacter::UpdateHeat(const FOnAttributeChangeData& Data)
 void APlayerCharacter::UpdateMaxHeat(const FOnAttributeChangeData& Data)
 {
 	
+}
+
+void APlayerCharacter::UpdateGravityScale(const FOnAttributeChangeData& Data)
+{
+	CharacterMovementComp->GravityScale = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateAirFriction(const FOnAttributeChangeData& Data)
+{
+	CharacterMovementComp->FallingLateralFriction = Data.NewValue;
 }
 
 

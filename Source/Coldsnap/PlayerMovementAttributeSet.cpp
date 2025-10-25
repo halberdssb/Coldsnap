@@ -17,6 +17,7 @@ UPlayerMovementAttributeSet::UPlayerMovementAttributeSet()
 	InitDashJumpValue(BaseDashJumpValue);
 	InitJumpForce(BaseJumpForce);
 	InitVerticalKnockbackMultiplier(BaseVerticalKnockbackMultiplier);
+	InitGravityScale(BaseGravityScale);
 }
 
 void UPlayerMovementAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -77,6 +78,10 @@ void UPlayerMovementAttributeSet::PostAttributeChange(const FGameplayAttribute& 
 	else if (Attribute == GetVerticalKnockbackMultiplierAttribute())
 	{
 		OnVerticalKnockbackMultiplierChanged.Broadcast(this, OldValue, NewValue);
+	}
+	else if (Attribute == GetGravityScaleAttribute())
+	{
+		OnGravityScaleChanged.Broadcast(this, OldValue, NewValue);
 	}
 }
 

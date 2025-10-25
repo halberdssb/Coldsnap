@@ -59,6 +59,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData VerticalKnockbackMultiplier;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData GravityScale;
+
 	// Define attribute accessors for all attributes
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, GroundSpeed);
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, GroundAccel);
@@ -71,6 +74,7 @@ public:
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, DashJumpValue);
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, JumpForce);
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, VerticalKnockbackMultiplier);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, GravityScale);
 	
 
 	// attribute changed functions
@@ -100,18 +104,21 @@ public:
 	FAttributeChangedEvent OnJumpForceChanged;
 	UPROPERTY(BlueprintAssignable)
 	FAttributeChangedEvent OnVerticalKnockbackMultiplierChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnGravityScaleChanged;
 
 private:
 	// default values for attributes
 	float BaseGroundSpeed = 600;
 	float BaseGroundAccel = 6;
-	float BaseGroundFriction = 10;
+	float BaseGroundFriction = 2;
 	float BaseAirSpeed = 600;
 	float BaseAirAccel = 6.0;
-	float BaseAirFriction = 7.0;
+	float BaseAirFriction = 0;
 	float BaseDashForce = 1;
 	float BaseAttackSpeed = 1.4;
 	float BaseDashJumpValue = 0;
 	float BaseJumpForce = 420;
 	float BaseVerticalKnockbackMultiplier = 1;
+	float BaseGravityScale = 1;
 };

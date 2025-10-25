@@ -86,6 +86,8 @@ public:
 	void UpdateVerticalKnockbackMultiplier(const FOnAttributeChangeData& Data);
 	void UpdateHeat(const FOnAttributeChangeData& Data);
 	void UpdateMaxHeat(const FOnAttributeChangeData& Data);
+	void UpdateGravityScale(const FOnAttributeChangeData& Data);
+	void UpdateAirFriction(const FOnAttributeChangeData& Data);
 
 private:
 	FGenericTeamId TeamID;
