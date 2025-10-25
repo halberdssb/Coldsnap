@@ -5,6 +5,7 @@
 
 #include "AbilitySystemComponent.h"
 #include "HealthAttributeSet.h"
+#include "HeatAttributeSet.h"
 #include "PlayerMovementAttributeSet.h"
 #include "PlayerAbilitySystemComponent.h"
 #include "DynamicMesh/DynamicMesh3.h"
@@ -26,6 +27,7 @@ APlayerCharacter::APlayerCharacter()
 	CharacterMovementComp = ACharacter::GetCharacterMovement();
 	HealthSet = CreateDefaultSubobject<UHealthAttributeSet>(TEXT("HealthAttributeSet"));
 	MovementSet = CreateDefaultSubobject<UPlayerMovementAttributeSet>(TEXT("MovementAttributeSet"));
+	HeatSet = CreateDefaultSubobject<UHeatAttributeSet>(TEXT("HeatAttributeSet"));
 	PlayerAbilitySystemComp->AddAttributeSetSubobject<UHealthAttributeSet>(HealthSet);
 	PlayerAbilitySystemComp->AddAttributeSetSubobject<UPlayerMovementAttributeSet>(MovementSet);
 	
@@ -63,6 +65,12 @@ void APlayerCharacter::SubscribeToAttributeChangeEvents()
 	// Bind character movement vertical knockback multiplier to GAS attribute
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetVerticalKnockbackMultiplierAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateVerticalKnockbackMultiplier);
+	// Bind event to heat meter changed
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(HeatSet->GetHeatAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateHeat);
+	// Bind event to max heat meter changed
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(HeatSet->GetHeatAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateHeat);
 }
 
 // Called every frame
@@ -130,6 +138,16 @@ void APlayerCharacter::UpdateJumpForce(const FOnAttributeChangeData& Data)
 void APlayerCharacter::UpdateVerticalKnockbackMultiplier(const FOnAttributeChangeData& Data)
 {
 	verticalKnockbackMultiplier = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateHeat(const FOnAttributeChangeData& Data)
+{
+	
+}
+
+void APlayerCharacter::UpdateMaxHeat(const FOnAttributeChangeData& Data)
+{
+	
 }
 
 

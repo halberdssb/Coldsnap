@@ -36,12 +36,14 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<class UCharacterMovementComponent> CharacterMovementComp;	
-	
+
+	// Attribute Sets
 	UPROPERTY()
 	TObjectPtr<class UHealthAttributeSet> HealthSet;
-
 	UPROPERTY()
 	TObjectPtr<class UPlayerMovementAttributeSet> MovementSet;
+	UPROPERTY()
+	TObjectPtr<class UHeatAttributeSet> HeatSet;
 
 	// Blueprint values changed by GAS attributes
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -82,8 +84,8 @@ public:
 	void UpdateAllowJumpDuringDash(const FOnAttributeChangeData& Data);
 	void UpdateJumpForce(const FOnAttributeChangeData& Data);
 	void UpdateVerticalKnockbackMultiplier(const FOnAttributeChangeData& Data);
-
-	
+	void UpdateHeat(const FOnAttributeChangeData& Data);
+	void UpdateMaxHeat(const FOnAttributeChangeData& Data);
 
 private:
 	FGenericTeamId TeamID;
