@@ -22,6 +22,9 @@ public:
 	GENERATED_BODY()
 
 	UHeatAttributeSet();
+
+	// handles clamping heat to min and max values when changed
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 	
 	// Current heat value that keeps track of current heat meter amount held by actor
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
