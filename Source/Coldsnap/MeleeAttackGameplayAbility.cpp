@@ -2,16 +2,18 @@
 
 #include "MeleeAttackGameplayAbility.h"
 
-#include "BaseEnemy.h"
+#include "Enemy.h"
 #include "IHittable.h"
 #include "IKnockbackable.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 UMeleeAttackGameplayAbility::UMeleeAttackGameplayAbility()
 {
+	// only hit Hittable objects
 	classHitFilter = IHittable::UClassType::StaticClass();
 }
 
+// Creates a spherecast hitbox
 TArray<AActor*> UMeleeAttackGameplayAbility::CreateMeleeHitbox(FVector position, float radius, FVector knockbackDirection, float knockbackForce, uint8 framesActive, bool drawDebugSphere)
 {
 	// Draw debug sphere to show hitbox
