@@ -32,9 +32,14 @@ public:
 	// maximum heat value the player/actor can have
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData MaxHeat;
+	// heat gain multiplier
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData HeatGainMultiplier;
+
 
 	ATTRIBUTE_ACCESSORS_BASIC(UHeatAttributeSet, Heat);
 	ATTRIBUTE_ACCESSORS_BASIC(UHeatAttributeSet, MaxHeat);
+	ATTRIBUTE_ACCESSORS_BASIC(UHeatAttributeSet, HeatGainMultiplier);
 	
 	// attribute changed functions
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
@@ -45,8 +50,11 @@ public:
 	FAttributeChangedEvent OnHeatChanged;
 	UPROPERTY(BlueprintAssignable)
 	FAttributeChangedEvent OnMaxHeatChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnHeatGainMultiplierChanged;
 	
 private:
 	float BaseHeat = 0;
 	float BaseMaxHeat = 100;
+	float BaseHeatGainMultiplier = 1.5;
 };

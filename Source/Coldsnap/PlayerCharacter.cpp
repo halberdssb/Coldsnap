@@ -48,11 +48,32 @@ void APlayerCharacter::BeginPlay()
 void APlayerCharacter::SubscribeToAttributeChangeEvents()
 {
 	// Bind character movement walk speed to GAS attribute
-	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetGroundSpeedAttribute())
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetWalkSpeedAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateWalkSpeed);
+	// Bind character movement max acceleration speed to GAS attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetMaxAccelerationAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateMaxAcceleration);
+	// Bind character movement ground friction to GAS attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetGroundFrictionAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateGroundFriction);
+	// Bind character movement falling friction to GAS attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetFallingLateralFrictionAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateFallingLateralFriction);
+	// Bind character movement walking deceleration to GAS attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetWalkingDecelerationAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateWalkingDeceleration);
+	// Bind character movement falling deceleration to GAS attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetFallingDecelerationAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateFallingDeceleration);
+	// Bind character movement air control to GAS attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetAirControlAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateAirControl);
+	// Bind character movement air boost to GAS attribute
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetAirBoostMultiplierAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateAirBoostMultiplier);
 	// Bind character movement dash speed to GAS attribute
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetDashForceAttribute())
-		.AddUObject(this, &APlayerCharacter::UpdateDashDuration);
+		.AddUObject(this, &APlayerCharacter::UpdateDashForce);
 	// Bind character movement attack speed to GAS attribute
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetAttackSpeedAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateAttackSpeed);
@@ -68,9 +89,6 @@ void APlayerCharacter::SubscribeToAttributeChangeEvents()
 	// Bind character movement gravity scale to GAS Attribute
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetGravityScaleAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateGravityScale);
-	// Bind character movement air friciton to GAS Attribute
-	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetAirFrictionAttribute())
-		.AddUObject(this, &APlayerCharacter::UpdateAirFriction);
 	// Bind event to heat meter changed
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(HeatSet->GetHeatAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateHeat);
@@ -121,7 +139,42 @@ void APlayerCharacter::UpdateWalkSpeed(const FOnAttributeChangeData& Data)
 	CharacterMovementComp->MaxWalkSpeed = Data.NewValue;
 }
 
-void APlayerCharacter::UpdateDashDuration(const FOnAttributeChangeData& Data)
+void APlayerCharacter::UpdateMaxAcceleration(const FOnAttributeChangeData& Data)
+{
+	CharacterMovementComp->MaxAcceleration = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateGroundFriction(const FOnAttributeChangeData& Data)
+{
+	CharacterMovementComp->GroundFriction = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateFallingLateralFriction(const FOnAttributeChangeData& Data)
+{
+	CharacterMovementComp->FallingLateralFriction = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateWalkingDeceleration(const FOnAttributeChangeData& Data)
+{
+	CharacterMovementComp->BrakingDecelerationWalking = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateFallingDeceleration(const FOnAttributeChangeData& Data)
+{
+	CharacterMovementComp->BrakingDecelerationFalling = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateAirControl(const FOnAttributeChangeData& Data)
+{
+	CharacterMovementComp->AirControl = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateAirBoostMultiplier(const FOnAttributeChangeData& Data)
+{
+	CharacterMovementComp->AirControlBoostMultiplier = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateDashForce(const FOnAttributeChangeData& Data)
 {
 	dashForce = baseDashForce * Data.NewValue;
 }
@@ -146,24 +199,39 @@ void APlayerCharacter::UpdateVerticalKnockbackMultiplier(const FOnAttributeChang
 	verticalKnockbackMultiplier = Data.NewValue;
 }
 
+void APlayerCharacter::UpdateHorizontalKnockbackMultiplier(const FOnAttributeChangeData& Data)
+{
+	horizontalKnockbackMultiplier = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateTotalKnockbackMultiplier(const FOnAttributeChangeData& Data)
+{
+	totalKnockbackMultiplier = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateDamageMultiplier(const FOnAttributeChangeData& Data)
+{
+	damageMultiplier = Data.NewValue;
+}
+
 void APlayerCharacter::UpdateHeat(const FOnAttributeChangeData& Data)
 {
-	
+	// not implemented yet
 }
 
 void APlayerCharacter::UpdateMaxHeat(const FOnAttributeChangeData& Data)
 {
-	
+	// not implemented yet
+}
+
+void APlayerCharacter::UpdateHeatGainMultiplier(const FOnAttributeChangeData& Data)
+{
+	// not implemented yet
 }
 
 void APlayerCharacter::UpdateGravityScale(const FOnAttributeChangeData& Data)
 {
 	CharacterMovementComp->GravityScale = Data.NewValue;
-}
-
-void APlayerCharacter::UpdateAirFriction(const FOnAttributeChangeData& Data)
-{
-	CharacterMovementComp->FallingLateralFriction = Data.NewValue;
 }
 
 

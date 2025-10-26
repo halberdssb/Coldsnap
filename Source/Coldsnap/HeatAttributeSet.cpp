@@ -16,6 +16,7 @@ UHeatAttributeSet::UHeatAttributeSet()
 {
 	InitHeat(BaseHeat);
 	InitMaxHeat(BaseMaxHeat);
+	InitHeatGainMultiplier(BaseHeatGainMultiplier);
 }
 
 void UHeatAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
@@ -23,8 +24,14 @@ void UHeatAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 	Super::PostGameplayEffectExecute(Data);
 
 	if (Data.EvaluatedData.Attribute == GetHeatAttribute())
-	{
+	{		
 		float CurrentHeat = GetHeat();
+
+		// multiply by heat gain mult if gain was positive
+		if (Data.EvaluatedData.Magnitude > 0)
+		{
+			CurrentHeat *= GetHeatGainMultiplier();
+		}
 		float NewHeatValue = FMath::Clamp(CurrentHeat, 0, GetMaxHeat());
 		SetHeat(NewHeatValue);
 	}
@@ -32,14 +39,7 @@ void UHeatAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 
 void UHeatAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
-	if (Attribute == GetHeatAttribute())
-	{
-		//NewValue = FMath::Clamp(NewValue, 0, GetMaxHeat());
-	}
-	else if (Attribute == GetMaxHeatAttribute())
-	{
-		//NewValue = FMath::Clamp(NewValue, 0, GetMaxHeat());
-	}
+	
 }
 
 void UHeatAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)

@@ -57,6 +57,12 @@ protected:
 	bool allowDashDuringJump;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float verticalKnockbackMultiplier = 1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float horizontalKnockbackMultiplier = 1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float totalKnockbackMultiplier = 1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float damageMultiplier = 1;
 
 	// Subscribes all GAS Attribute functions to their respective Attributes
 	void SubscribeToAttributeChangeEvents();
@@ -79,15 +85,25 @@ public:
 
 	// On GAS Attribute changed functions - subscribed to attribute change delegates in constructor
 	void UpdateWalkSpeed(const FOnAttributeChangeData& Data);
-	void UpdateDashDuration(const FOnAttributeChangeData& Data);
+	void UpdateMaxAcceleration(const FOnAttributeChangeData& Data);
+	void UpdateGroundFriction(const FOnAttributeChangeData& Data);
+	void UpdateFallingLateralFriction(const FOnAttributeChangeData& Data);
+	void UpdateWalkingDeceleration(const FOnAttributeChangeData& Data);
+	void UpdateFallingDeceleration(const FOnAttributeChangeData& Data);
+	void UpdateAirControl(const FOnAttributeChangeData& Data);
+	void UpdateAirBoostMultiplier(const FOnAttributeChangeData& Data);
+	void UpdateDashForce(const FOnAttributeChangeData& Data);
 	void UpdateAttackSpeed(const FOnAttributeChangeData& Data);
 	void UpdateAllowJumpDuringDash(const FOnAttributeChangeData& Data);
 	void UpdateJumpForce(const FOnAttributeChangeData& Data);
 	void UpdateVerticalKnockbackMultiplier(const FOnAttributeChangeData& Data);
+	void UpdateHorizontalKnockbackMultiplier(const FOnAttributeChangeData& Data);
+	void UpdateTotalKnockbackMultiplier(const FOnAttributeChangeData& Data);
+	void UpdateDamageMultiplier(const FOnAttributeChangeData& Data);
 	void UpdateHeat(const FOnAttributeChangeData& Data);
 	void UpdateMaxHeat(const FOnAttributeChangeData& Data);
+	void UpdateHeatGainMultiplier(const FOnAttributeChangeData& Data);
 	void UpdateGravityScale(const FOnAttributeChangeData& Data);
-	void UpdateAirFriction(const FOnAttributeChangeData& Data);
 
 private:
 	FGenericTeamId TeamID;

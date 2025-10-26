@@ -27,23 +27,29 @@ public:
 	
 	// Movement attributes 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FGameplayAttributeData GroundSpeed;
+	FGameplayAttributeData WalkSpeed;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FGameplayAttributeData GroundAccel;
+	FGameplayAttributeData MaxAcceleration;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData GroundFriction;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FGameplayAttributeData AirSpeed;
+	FGameplayAttributeData FallingLateralFriction;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData WalkingDeceleration;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData FallingDeceleration;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FGameplayAttributeData AirAccel;
+	FGameplayAttributeData AirControl;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FGameplayAttributeData AirFriction;
-
+	FGameplayAttributeData AirBoostMultiplier;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData DashForce;
 
@@ -60,20 +66,34 @@ public:
 	FGameplayAttributeData VerticalKnockbackMultiplier;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData HorizontalKnockbackMultiplier;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData TotalKnockbackMultiplier;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData DamageMultiplier;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData GravityScale;
 
 	// Define attribute accessors for all attributes
-	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, GroundSpeed);
-	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, GroundAccel);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, WalkSpeed);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, MaxAcceleration);
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, GroundFriction);
-	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, AirSpeed);
-	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, AirAccel);
-	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, AirFriction);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, FallingLateralFriction);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, WalkingDeceleration);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, FallingDeceleration);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, AirControl);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, AirBoostMultiplier);
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, DashForce);
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, AttackSpeed);
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, DashJumpValue);
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, JumpForce);
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, VerticalKnockbackMultiplier);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, HorizontalKnockbackMultiplier);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, TotalKnockbackMultiplier);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, DamageMultiplier);
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, GravityScale);
 	
 
@@ -83,17 +103,21 @@ public:
 	virtual void PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue) override;
 
 	UPROPERTY(BlueprintAssignable)
-	FAttributeChangedEvent OnGroundSpeedChanged;
+	FAttributeChangedEvent OnWalkSpeedChanged;
 	UPROPERTY(BlueprintAssignable)
-	FAttributeChangedEvent OnGroundAccelChanged;
+	FAttributeChangedEvent OnMaxAccelerationChanged;
 	UPROPERTY(BlueprintAssignable)
 	FAttributeChangedEvent OnGroundFrictionChanged;
 	UPROPERTY(BlueprintAssignable)
-	FAttributeChangedEvent OnAirSpeedChanged;
+	FAttributeChangedEvent OnFallingLateralFrictionChanged;
 	UPROPERTY(BlueprintAssignable)
-	FAttributeChangedEvent OnAirAccelChanged;
+	FAttributeChangedEvent OnWalkingDecelerationChanged;
 	UPROPERTY(BlueprintAssignable)
-	FAttributeChangedEvent OnAirFrictionChanged;
+	FAttributeChangedEvent OnFallingDecelerationChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnAirControlChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnAirBoostMultiplierChanged;
 	UPROPERTY(BlueprintAssignable)
 	FAttributeChangedEvent OnDashForceChanged;
 	UPROPERTY(BlueprintAssignable)
@@ -105,20 +129,31 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FAttributeChangedEvent OnVerticalKnockbackMultiplierChanged;
 	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnHorizontalKnockbackMultiplierChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnTotalKnockbackMultiplierChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnDamageMultiplierChanged;
+	UPROPERTY(BlueprintAssignable)
 	FAttributeChangedEvent OnGravityScaleChanged;
 
 private:
 	// default values for attributes
-	float BaseGroundSpeed = 600;
-	float BaseGroundAccel = 6;
-	float BaseGroundFriction = 2;
-	float BaseAirSpeed = 600;
-	float BaseAirAccel = 6.0;
-	float BaseAirFriction = 0;
+	float BaseWalkSpeed = 600;
+	float BaseMaxAcceleration = 4000;
+	float BaseGroundFriction = 0;
+	float BaseFallingLateralFriction = 0;
+	float BaseWalkingDeceleration = 2048;
+	float BaseFallingDeceleration = 0;
+	float BaseAirControl = .95;
+	float BaseAirBoostMultiplier = 2;
 	float BaseDashForce = 1;
 	float BaseAttackSpeed = 1.4;
 	float BaseDashJumpValue = 0;
 	float BaseJumpForce = 420;
 	float BaseVerticalKnockbackMultiplier = 1;
+	float BaseHorizontalKnockbackMultiplier = 1;
+	float BaseTotalKnockbackMultiplier = 1;
+	float BaseDamageMultiplier = 1;
 	float BaseGravityScale = 1;
 };
