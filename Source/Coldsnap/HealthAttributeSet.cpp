@@ -32,6 +32,7 @@ void UHealthAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCall
 		if (OldHealthValue != NewHealthValue)
 		{
 			SetHealth(NewHealthValue);
+			OnHealthChanged.Broadcast(this, OldHealthValue, NewHealthValue);
 		}
 
 		// Set Damage back to 0
@@ -46,8 +47,13 @@ void UHealthAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute
 
 void UHealthAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
 {
-	if (Attribute == GetMaxHealthAttribute())
+	if (Attribute == GetHealthAttribute())
 	{
+		OnHealthChanged.Broadcast(this, OldValue, NewValue);
+	}
+	else if (Attribute == GetMaxHealthAttribute())
+	{
+		OnMaxHealthChanged.Broadcast(this, OldValue, NewValue);
 		float OldHealthDifference = OldValue - GetHealth();
 		SetHealth(NewValue - OldHealthDifference);
 	}

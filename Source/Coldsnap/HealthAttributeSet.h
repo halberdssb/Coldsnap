@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
 #include "AbilitySystemComponent.h"
+#include "PlayerMovementAttributeSet.h"
 #include "HealthAttributeSet.generated.h"
 
 /*
@@ -41,6 +42,11 @@ public:
 	ATTRIBUTE_ACCESSORS_BASIC(UHealthAttributeSet, Health);
 	ATTRIBUTE_ACCESSORS_BASIC(UHealthAttributeSet, MaxHealth);
 
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnHealthChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnMaxHealthChanged;
+	
 	// attribute changed functions
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 
