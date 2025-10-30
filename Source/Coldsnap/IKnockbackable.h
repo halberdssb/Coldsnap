@@ -7,7 +7,10 @@
 #include "IKnockbackable.generated.h"
 
 /**
- * 
+ * (U)Interface for actors that can receive knockback from attacks - MUST also be IHittable to be hit
+ *
+ * Jeff Stevenson
+ * 10.24.25
  */
 
 UINTERFACE(MinimalAPI, Blueprintable)
@@ -22,6 +25,7 @@ class COLDSNAP_API IKnockbackable
 	
 public:
 
+	// Overrideable function to receive knockback - called by attacks/knockback appliers on all hit IKnockbackable actors
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Knockback")
 	void ApplyKnockback(FVector knockbackDirection, float knockbackForce);
 };
