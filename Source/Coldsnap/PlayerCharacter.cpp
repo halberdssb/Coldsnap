@@ -4,6 +4,7 @@
 #include "PlayerCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "AttackHitboxManager.h"
 #include "HealthAttributeSet.h"
 #include "HeatAttributeSet.h"
 #include "PlayerMovementAttributeSet.h"
@@ -30,6 +31,9 @@ APlayerCharacter::APlayerCharacter()
 	HeatSet = CreateDefaultSubobject<UHeatAttributeSet>(TEXT("HeatAttributeSet"));
 	PlayerAbilitySystemComp->AddAttributeSetSubobject<UHealthAttributeSet>(HealthSet);
 	PlayerAbilitySystemComp->AddAttributeSetSubobject<UPlayerMovementAttributeSet>(MovementSet);
+
+	// Add hitbox manager component
+	AttackHitboxManager = CreateDefaultSubobject<UAttackHitboxManager>(TEXT("AttackHitboxManager"));
 	
 	// Set team ID to 2 - make enemies view player as separate team
 	SetGenericTeamId(FGenericTeamId(2));

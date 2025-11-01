@@ -45,6 +45,10 @@ protected:
 	UPROPERTY()
 	TObjectPtr<class UHeatAttributeSet> HeatSet;
 
+	// Hitbox creator component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<class UAttackHitboxManager> AttackHitboxManager;
+
 	// Blueprint values changed by GAS attributes
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float dashDuration = 0.5;

@@ -24,5 +24,5 @@ public:
 
 	// Creates a spherecast hitbox for at a given location with damage and knockback valeus
 	UFUNCTION(BlueprintCallable, Category = "Melee")
-	TArray<AActor*> CreateMeleeHitbox(FVector position, float radius, FVector knockbackDirection, float knockbackForce, uint8 framesActive, bool drawDebugSphere);
+	TArray<AActor*> CreateMeleeHitbox(FHitboxData InHitboxData);
 };
