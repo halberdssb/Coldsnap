@@ -27,6 +27,43 @@ public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
 
+	virtual void Tick(float DeltaTime) override;
+
+	// Handles GAS replication
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	// returns GAS component
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+	// get and set team ID - used for enemy perception
+	virtual void SetGenericTeamId(const FGenericTeamId& NewTeamID) override;
+	virtual FGenericTeamId GetGenericTeamId() const override { return TeamID; }
+
+	// On GAS Attribute changed functions - subscribed to attribute change delegates in constructor
+	void UpdateWalkSpeed(const FOnAttributeChangeData& Data);
+	void UpdateMaxAcceleration(const FOnAttributeChangeData& Data);
+	void UpdateGroundFriction(const FOnAttributeChangeData& Data);
+	void UpdateFallingLateralFriction(const FOnAttributeChangeData& Data);
+	void UpdateWalkingDeceleration(const FOnAttributeChangeData& Data);
+	void UpdateFallingDeceleration(const FOnAttributeChangeData& Data);
+	void UpdateAirControl(const FOnAttributeChangeData& Data);
+	void UpdateAirBoostMultiplier(const FOnAttributeChangeData& Data);
+	void UpdateDashForce(const FOnAttributeChangeData& Data);
+	void UpdateAttackSpeed(const FOnAttributeChangeData& Data);
+	void UpdateAllowJumpDuringDash(const FOnAttributeChangeData& Data);
+	void UpdateJumpForce(const FOnAttributeChangeData& Data);
+	void UpdateVerticalKnockbackMultiplier(const FOnAttributeChangeData& Data);
+	void UpdateHorizontalKnockbackMultiplier(const FOnAttributeChangeData& Data);
+	void UpdateTotalKnockbackMultiplier(const FOnAttributeChangeData& Data);
+	void UpdateDamageMultiplier(const FOnAttributeChangeData& Data);
+	void UpdateHeat(const FOnAttributeChangeData& Data);
+	void UpdateMaxHeat(const FOnAttributeChangeData& Data);
+	void UpdateHeatGainMultiplier(const FOnAttributeChangeData& Data);
+	void UpdateGravityScale(const FOnAttributeChangeData& Data);
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -71,44 +108,13 @@ protected:
 	// Subscribes all GAS Attribute functions to their respective Attributes
 	void SubscribeToAttributeChangeEvents();
 
-public:	
-	virtual void Tick(float DeltaTime) override;
-
-	// Handles GAS replication
-	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-	
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	// returns GAS component
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-
-	// get and set team ID - used for enemy perception
-	virtual void SetGenericTeamId(const FGenericTeamId& NewTeamID) override;
-	virtual FGenericTeamId GetGenericTeamId() const override { return TeamID; }
-
-	// On GAS Attribute changed functions - subscribed to attribute change delegates in constructor
-	void UpdateWalkSpeed(const FOnAttributeChangeData& Data);
-	void UpdateMaxAcceleration(const FOnAttributeChangeData& Data);
-	void UpdateGroundFriction(const FOnAttributeChangeData& Data);
-	void UpdateFallingLateralFriction(const FOnAttributeChangeData& Data);
-	void UpdateWalkingDeceleration(const FOnAttributeChangeData& Data);
-	void UpdateFallingDeceleration(const FOnAttributeChangeData& Data);
-	void UpdateAirControl(const FOnAttributeChangeData& Data);
-	void UpdateAirBoostMultiplier(const FOnAttributeChangeData& Data);
-	void UpdateDashForce(const FOnAttributeChangeData& Data);
-	void UpdateAttackSpeed(const FOnAttributeChangeData& Data);
-	void UpdateAllowJumpDuringDash(const FOnAttributeChangeData& Data);
-	void UpdateJumpForce(const FOnAttributeChangeData& Data);
-	void UpdateVerticalKnockbackMultiplier(const FOnAttributeChangeData& Data);
-	void UpdateHorizontalKnockbackMultiplier(const FOnAttributeChangeData& Data);
-	void UpdateTotalKnockbackMultiplier(const FOnAttributeChangeData& Data);
-	void UpdateDamageMultiplier(const FOnAttributeChangeData& Data);
-	void UpdateHeat(const FOnAttributeChangeData& Data);
-	void UpdateMaxHeat(const FOnAttributeChangeData& Data);
-	void UpdateHeatGainMultiplier(const FOnAttributeChangeData& Data);
-	void UpdateGravityScale(const FOnAttributeChangeData& Data);
-
 private:
 	FGenericTeamId TeamID;
+
+	// initializes ability system component 
+	void SetUpAbilitySystemComponent();
+
+	// fires proper GAS events from enhanced input actions
+	void OnAbilityInputPressed(int32 InputID);
+	void OnAbilityInputReleased(int32 InputID);
 };

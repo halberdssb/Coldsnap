@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
+#include "GameplayAbilityInputData.h"
 #include "PlayerAbilitySystemComponent.generated.h"
 
 /*
@@ -16,5 +17,10 @@ UCLASS()
 class COLDSNAP_API UPlayerAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
-	
+
+public:
+	UPlayerAbilitySystemComponent();
+
+	UPROPERTY(EditAnywhere)
+	UGameplayAbilityInputData* AbilityInputMappings;
 };
