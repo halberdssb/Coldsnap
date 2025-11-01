@@ -9,7 +9,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FHitboxHitActorsDelegate, const TArray<AActor*>&, HitActors, const FHitboxData, HitboxData);
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class COLDSNAP_API UAttackHitboxManager : public UActorComponent
 {
 	GENERATED_BODY()
@@ -19,19 +19,24 @@ public:
 	UAttackHitboxManager();
 
 	// Event that is fired when one or more objects are hit by a hitbox
-	UPROPERTY(BlueprintAssignable)
+	UPROPERTY(BlueprintAssignable, BlueprintReadWrite)
 	FHitboxHitActorsDelegate HitboxHitActorsDelegate;
-	
-	// filter for hittable classes - should only be IHittable actors
-	UClass* classHitFilter;
+
+	// array of actors already hit by current hitbox
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<AActor*> ActorsAlreadyHit;
 
 	// Creates a capsule hitbox
 	UFUNCTION(BlueprintCallable, Category = "Attack Hitbox Manager")
 	TArray<AActor*> CreateAttackHitbox(FHitboxData InHitboxData);
 
-	void HitActors(TArray<AActor*> HitActors);
 	
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+
+	// filter for hittable classes - should only be IHittable actors - CURRENTLY UNUSED
+	UClass* classHitFilter;
+
+	void HitActors(TArray<AActor*> HitActors);
 };

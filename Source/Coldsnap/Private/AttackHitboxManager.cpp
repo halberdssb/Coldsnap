@@ -37,6 +37,18 @@ TArray<AActor*> UAttackHitboxManager::CreateAttackHitbox(FHitboxData InHitboxDat
 	// Return if no actors found
 	if (overlappingActors.Num() < 0) return TArray<AActor*>();
 
+	// Remove any actors already hit by this attack - already hit actors is reset at start of each attack
+	for (AActor* overlappingActor : overlappingActors)
+	{
+		if (!ActorsAlreadyHit.Contains(overlappingActor))
+		{
+			ActorsAlreadyHit.Add(overlappingActor);
+		}
+		else
+		{
+			overlappingActors.Remove(overlappingActor);
+		}
+	}
 	// Fire hit actors delegate if any actors were hit
 	HitboxHitActorsDelegate.Broadcast(overlappingActors, InHitboxData);
 	return overlappingActors;
