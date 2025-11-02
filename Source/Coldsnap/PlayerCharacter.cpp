@@ -107,21 +107,28 @@ void APlayerCharacter::SetUpAbilitySystemComponent()
 	SubscribeToAttributeChangeEvents();
 
 	// set up ability input mappings
-	const TSet<FGameplayAbilityInputMapping> AbilityInputMappings = PlayerAbilitySystemComp->AbilityInputMappings->GetInputMappings();//*****
-	const int32 DefaultAbilityLevel = 1;
-
-	// add each ability from mappings to ASC
-	for (const auto AbilityInputMapping : AbilityInputMappings)
+	if (PlayerAbilitySystemComp->AbilityInputMappings)
 	{
-		// check mapping is valid
-		if (AbilityInputMapping.IsValid())
+		const TSet<FGameplayAbilityInputMapping> AbilityInputMappings = PlayerAbilitySystemComp->AbilityInputMappings->GetInputMappings();//*****
+		const int32 DefaultAbilityLevel = 1;
+
+		// add each ability from mappings to ASC
+		for (const auto AbilityInputMapping : AbilityInputMappings)
 		{
-			// create ability spec and grant to ASC
-			FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityInputMapping.GameplayAbility, DefaultAbilityLevel, AbilityInputMapping.InputID);
-			PlayerAbilitySystemComp->GiveAbility(AbilitySpec);
+			// check mapping is valid
+			if (AbilityInputMapping.IsValid())
+			{
+				// create ability spec and grant to ASC
+				FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityInputMapping.GameplayAbility, DefaultAbilityLevel, AbilityInputMapping.InputID);
+				PlayerAbilitySystemComp->GiveAbility(AbilitySpec);
 			
-			UE_LOG(LogTemp, Warning, TEXT("Added ability!"));
-		}
+				UE_LOG(LogTemp, Warning, TEXT("Added ability!"));
+			}
+		}	
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player Ability Input Mappings Asset is null in Player Ability System Component"));
 	}
 }
 
