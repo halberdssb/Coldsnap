@@ -19,6 +19,9 @@ class COLDSNAP_API UMeleeAttackGameplayAbility : public UGameplayAbility
 public:
 	UMeleeAttackGameplayAbility();
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack Animation")
+	UAnimMontage* AttackAnimMontage;
+	
 	// filter for hittable classes - should only be IHittable actors
 	UClass* classHitFilter;
 
