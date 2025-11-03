@@ -3,6 +3,7 @@
 #include "MeleeAttackGameplayAbility.h"
 
 #include "Enemy.h"
+#include "FHitboxData.h"
 #include "IHittable.h"
 #include "IKnockbackable.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -14,14 +15,8 @@ UMeleeAttackGameplayAbility::UMeleeAttackGameplayAbility()
 }
 
 // Creates a spherecast hitbox
-TArray<AActor*> UMeleeAttackGameplayAbility::CreateMeleeHitbox(FVector position, float radius, FVector knockbackDirection, float knockbackForce, uint8 framesActive, bool drawDebugSphere)
+TArray<AActor*> UMeleeAttackGameplayAbility::CreateMeleeHitbox(FHitboxData InHitboxData)
 {
-	// Draw debug sphere to show hitbox
-	if (drawDebugSphere)
-	{
-		//DrawDebugSphere(GetWorld(), position, radius, 20, FColor::Red, false, 0.5);
-	}
-
 	// Object types to trace for - only pawns
 	TArray<TEnumAsByte<EObjectTypeQuery>> objectTypes = {UEngineTypes::ConvertToObjectType(ECC_Pawn)};
 	
@@ -32,35 +27,11 @@ TArray<AActor*> UMeleeAttackGameplayAbility::CreateMeleeHitbox(FVector position,
 	TArray<AActor*> overlappingActors;
 
 	// Do overlap sphere cast
-	UKismetSystemLibrary::SphereOverlapActors(GetWorld(), position, radius, objectTypes, nullptr, actorsToIgnore, overlappingActors);
-
+	UKismetSystemLibrary::CapsuleOverlapActorsWithOrientation(GetWorld(), InHitboxData.PositionOffset, InHitboxData.Radius, InHitboxData.Height / 2,
+	InHitboxData.Rotation, objectTypes, classHitFilter, actorsToIgnore, overlappingActors);
+	
 	// Return if no actors found
 	if (overlappingActors.Num() < 0) return TArray<AActor*>();
-
-	/*for (int i = 0; i < overlappingActors.Num(); i++)
-	{
-		// check for hittable actors
-		if (!overlappingActors[i]->Implements<UHittable>())
-		{
-			overlappingActors.RemoveAt(i--);
-		}
-		else
-		{
-			IHittable* hittable = Cast<IHittable>(overlappingActors[i]);
-			hittable->Hit();
-		}
-
-		// check for knockbackable actors
-		if (!overlappingActors[i]->Implements<UKnockbackable>())
-		{
-			overlappingActors.RemoveAt(i--);
-		}
-		else
-		{
-			IHittable* hittable = Cast<IHittable>(overlappingActors[i]);
-			hittable->Hit();
-		}
-	}*/
 
 	return overlappingActors;
 }

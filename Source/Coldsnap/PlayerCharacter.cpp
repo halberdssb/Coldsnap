@@ -4,11 +4,12 @@
 #include "PlayerCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "AttackHitboxManager.h"
 #include "HealthAttributeSet.h"
 #include "HeatAttributeSet.h"
 #include "PlayerMovementAttributeSet.h"
 #include "PlayerAbilitySystemComponent.h"
-#include "DynamicMesh/DynamicMesh3.h"
+#include "EnhancedInputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 /*
@@ -30,6 +31,9 @@ APlayerCharacter::APlayerCharacter()
 	HeatSet = CreateDefaultSubobject<UHeatAttributeSet>(TEXT("HeatAttributeSet"));
 	PlayerAbilitySystemComp->AddAttributeSetSubobject<UHealthAttributeSet>(HealthSet);
 	PlayerAbilitySystemComp->AddAttributeSetSubobject<UPlayerMovementAttributeSet>(MovementSet);
+
+	// Add hitbox manager component
+	AttackHitboxManager = CreateDefaultSubobject<UAttackHitboxManager>(TEXT("AttackHitboxManager"));
 	
 	// Set team ID to 2 - make enemies view player as separate team
 	SetGenericTeamId(FGenericTeamId(2));
@@ -42,7 +46,7 @@ void APlayerCharacter::BeginPlay()
 	PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
 	CharacterMovementComp->MaxWalkSpeed = 600;
 
-	SubscribeToAttributeChangeEvents();
+	SetUpAbilitySystemComponent();
 }
 
 void APlayerCharacter::SubscribeToAttributeChangeEvents()
@@ -97,6 +101,55 @@ void APlayerCharacter::SubscribeToAttributeChangeEvents()
 		.AddUObject(this, &APlayerCharacter::UpdateMaxHeat);
 }
 
+void APlayerCharacter::SetUpAbilitySystemComponent()
+{
+	// subscribe to on attribute changed delegates
+	SubscribeToAttributeChangeEvents();
+
+	// set up ability input mappings
+	if (PlayerAbilitySystemComp->AbilityInputMappings)
+	{
+		const TSet<FGameplayAbilityInputMapping> AbilityInputMappings = PlayerAbilitySystemComp->AbilityInputMappings->GetInputMappings();//*****
+		const int32 DefaultAbilityLevel = 1;
+
+		// add each ability from mappings to ASC
+		for (const auto AbilityInputMapping : AbilityInputMappings)
+		{
+			// check mapping is valid
+			if (AbilityInputMapping.IsValid())
+			{
+				// create ability spec and grant to ASC
+				FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityInputMapping.GameplayAbility, DefaultAbilityLevel, AbilityInputMapping.InputID);
+				PlayerAbilitySystemComp->GiveAbility(AbilitySpec);
+			
+				UE_LOG(LogTemp, Warning, TEXT("Added ability!"));
+			}
+		}	
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player Ability Input Mappings Asset is null in Player Ability System Component"));
+	}
+}
+
+void APlayerCharacter::OnAbilityInputPressed(int32 InputID)
+{
+	// fire ability system input event
+	if (PlayerAbilitySystemComp)
+	{
+		PlayerAbilitySystemComp->AbilityLocalInputPressed(InputID);
+	}
+}
+
+void APlayerCharacter::OnAbilityInputReleased(int32 InputID)
+{
+	// fire ability system input event
+	if (PlayerAbilitySystemComp)
+	{
+		PlayerAbilitySystemComp->AbilityLocalInputReleased(InputID);
+	}
+}
+
 // Called every frame
 void APlayerCharacter::Tick(float DeltaTime)
 {
@@ -113,8 +166,30 @@ void APlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 // Called to bind functionality to input
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	//Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	// check that player input and input mappings components are both valid
+	if (UEnhancedInputComponent* EnhancedInput = Cast<UEnhancedInputComponent, UInputComponent>(PlayerInputComponent))
+	{
+		if (PlayerAbilitySystemComp->AbilityInputMappings)
+		{
+			// bind input to each ability mapping in input component
+			const TSet<FGameplayAbilityInputMapping> InputMappings = PlayerAbilitySystemComp->AbilityInputMappings->GetInputMappings();
+			for (const auto InputMapping : InputMappings)
+			{
+				if (InputMapping.IsValid())
+				{
+					// get input action and ID references from mapping
+					const UInputAction* InputAction = InputMapping.InputMapping;
+					const int32 InputID = InputMapping.InputID;
+
+					// subscribe to enhanced input actions
+					EnhancedInput->BindAction(InputAction, ETriggerEvent::Started, this, &APlayerCharacter::OnAbilityInputPressed, InputID);
+					EnhancedInput->BindAction(InputAction, ETriggerEvent::Completed, this, &APlayerCharacter::OnAbilityInputReleased, InputID);
+				}
+			}
+		}
+	}
 }
 
 // Retrusn Gameplay Ability System

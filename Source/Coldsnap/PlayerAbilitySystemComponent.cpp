@@ -9,3 +9,8 @@
  * Jeff Stevenson
  * 10.24.25
  */
+
+UPlayerAbilitySystemComponent::UPlayerAbilitySystemComponent()
+{
+	
+}

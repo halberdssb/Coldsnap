@@ -19,10 +19,13 @@ class COLDSNAP_API UMeleeAttackGameplayAbility : public UGameplayAbility
 public:
 	UMeleeAttackGameplayAbility();
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack Animation")
+	UAnimMontage* AttackAnimMontage;
+	
 	// filter for hittable classes - should only be IHittable actors
 	UClass* classHitFilter;
 
 	// Creates a spherecast hitbox for at a given location with damage and knockback valeus
 	UFUNCTION(BlueprintCallable, Category = "Melee")
-	TArray<AActor*> CreateMeleeHitbox(FVector position, float radius, FVector knockbackDirection, float knockbackForce, uint8 framesActive, bool drawDebugSphere);
+	TArray<AActor*> CreateMeleeHitbox(FHitboxData InHitboxData);
 };

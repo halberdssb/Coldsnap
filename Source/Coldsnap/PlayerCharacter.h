@@ -27,47 +27,6 @@ public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
 
-protected:
-	virtual void BeginPlay() override;
-
-	// GAS & Component Variables
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities)
-	TObjectPtr<class UPlayerAbilitySystemComponent> PlayerAbilitySystemComp;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	TObjectPtr<class UCharacterMovementComponent> CharacterMovementComp;	
-
-	// Attribute Sets
-	UPROPERTY()
-	TObjectPtr<class UHealthAttributeSet> HealthSet;
-	UPROPERTY()
-	TObjectPtr<class UPlayerMovementAttributeSet> MovementSet;
-	UPROPERTY()
-	TObjectPtr<class UHeatAttributeSet> HeatSet;
-
-	// Blueprint values changed by GAS attributes
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	float dashDuration = 0.5;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FVector dashForce = FVector(2000,2000,0);
-	FVector baseDashForce = FVector(2000,2000,0);
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	float attackSpeed = 1;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	bool allowDashDuringJump;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	float verticalKnockbackMultiplier = 1;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	float horizontalKnockbackMultiplier = 1;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	float totalKnockbackMultiplier = 1;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	float damageMultiplier = 1;
-
-	// Subscribes all GAS Attribute functions to their respective Attributes
-	void SubscribeToAttributeChangeEvents();
-
-public:	
 	virtual void Tick(float DeltaTime) override;
 
 	// Handles GAS replication
@@ -105,6 +64,57 @@ public:
 	void UpdateHeatGainMultiplier(const FOnAttributeChangeData& Data);
 	void UpdateGravityScale(const FOnAttributeChangeData& Data);
 
+protected:
+	virtual void BeginPlay() override;
+
+	// GAS & Component Variables
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities)
+	TObjectPtr<class UPlayerAbilitySystemComponent> PlayerAbilitySystemComp;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<class UCharacterMovementComponent> CharacterMovementComp;	
+
+	// Attribute Sets
+	UPROPERTY()
+	TObjectPtr<class UHealthAttributeSet> HealthSet;
+	UPROPERTY()
+	TObjectPtr<class UPlayerMovementAttributeSet> MovementSet;
+	UPROPERTY()
+	TObjectPtr<class UHeatAttributeSet> HeatSet;
+
+	// Hitbox creator component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<class UAttackHitboxManager> AttackHitboxManager;
+
+	// Blueprint values changed by GAS attributes
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float dashDuration = 0.5;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FVector dashForce = FVector(2000,2000,0);
+	FVector baseDashForce = FVector(2000,2000,0);
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float attackSpeed = 1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool allowDashDuringJump;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float verticalKnockbackMultiplier = 1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float horizontalKnockbackMultiplier = 1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float totalKnockbackMultiplier = 1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float damageMultiplier = 1;
+
+	// Subscribes all GAS Attribute functions to their respective Attributes
+	void SubscribeToAttributeChangeEvents();
+
 private:
 	FGenericTeamId TeamID;
+
+	// initializes ability system component 
+	void SetUpAbilitySystemComponent();
+
+	// fires proper GAS events from enhanced input actions
+	void OnAbilityInputPressed(int32 InputID);
+	void OnAbilityInputReleased(int32 InputID);
 };
