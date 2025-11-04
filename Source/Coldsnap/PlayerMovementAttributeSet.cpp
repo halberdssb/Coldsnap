@@ -9,14 +9,19 @@ UPlayerMovementAttributeSet::UPlayerMovementAttributeSet()
 	InitWalkSpeed(BaseWalkSpeed);
 	InitMaxAcceleration(BaseMaxAcceleration);
 	InitGroundFriction(BaseGroundFriction);
+	InitFallingLateralFriction(BaseFallingLateralFriction);
 	InitWalkingDeceleration(BaseWalkingDeceleration);
 	InitFallingDeceleration(BaseFallingDeceleration);
 	InitAirControl(BaseAirControl);
 	InitAirBoostMultiplier(BaseAirBoostMultiplier);
+	InitDashForce(BaseDashForce);
 	InitAttackSpeed(BaseAttackSpeed);
 	InitDashJumpValue(BaseDashJumpValue);
 	InitJumpForce(BaseJumpForce);
 	InitVerticalKnockbackMultiplier(BaseVerticalKnockbackMultiplier);
+	InitHorizontalKnockbackMultiplier(BaseHorizontalKnockbackMultiplier);
+	InitTotalKnockbackMultiplier(BaseTotalKnockbackMultiplier);
+	InitDamageMultiplier(BaseDamageMultiplier);
 	InitGravityScale(BaseGravityScale);
 }
 
