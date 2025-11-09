@@ -36,6 +36,9 @@ public:
 	TSubclassOf<class UUpgradeGameplayEffect> legsGameplayEffect;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<class UUpgradeGameplayEffect> torsoGameplayEffect;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class UUpgradeGameplayEffect> fuelGameplayEffect;
 
 	// Chance for the upgrade to be dropped by an enemy -
@@ -45,6 +48,4 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-
-public:		
 };
