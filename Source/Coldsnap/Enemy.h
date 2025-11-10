@@ -6,6 +6,7 @@
 #include "HealthAttributeSet.h"
 #include "IHittable.h"
 #include "IKnockbackable.h"
+#include "ItemDropTable.h"
 #include "Upgrade.h"
 #include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
@@ -33,6 +34,10 @@ protected:
 
 public:
 
+	//  Drop Table
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Drops)
+	TObjectPtr<UItemDropTable> DropTable;
+	
 	// GAS properties
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
