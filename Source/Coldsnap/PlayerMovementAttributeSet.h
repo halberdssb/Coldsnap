@@ -77,6 +77,12 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData GravityScale;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData LifeStealChance;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData LifeStealHealAmount;
+
 	// Define attribute accessors for all attributes
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, WalkSpeed);
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, MaxAcceleration);
@@ -95,6 +101,8 @@ public:
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, TotalKnockbackMultiplier);
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, DamageMultiplier);
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, GravityScale);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, LifeStealChance);
+	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, LifeStealHealAmount);
 	
 
 	// attribute changed functions
@@ -136,6 +144,10 @@ public:
 	FAttributeChangedEvent OnDamageMultiplierChanged;
 	UPROPERTY(BlueprintAssignable)
 	FAttributeChangedEvent OnGravityScaleChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnLifeStealChanceChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnLifeStealHealAmountChanged;
 
 private:
 	// default values for attributes
@@ -156,4 +168,6 @@ private:
 	float BaseTotalKnockbackMultiplier = 1;
 	float BaseDamageMultiplier = 1;
 	float BaseGravityScale = 1;
+	float BaseLifeStealChance = 0;
+	float BaseLifeStealHealAmount = 1;
 };

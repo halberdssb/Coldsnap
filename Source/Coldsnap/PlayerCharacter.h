@@ -63,6 +63,8 @@ public:
 	void UpdateMaxHeat(const FOnAttributeChangeData& Data);
 	void UpdateHeatGainMultiplier(const FOnAttributeChangeData& Data);
 	void UpdateGravityScale(const FOnAttributeChangeData& Data);
+	void UpdateLifeStealChance(const FOnAttributeChangeData& Data);
+	void UpdateLifeStealHealAmount(const FOnAttributeChangeData& Data);
 
 protected:
 	virtual void BeginPlay() override;
@@ -104,6 +106,10 @@ protected:
 	float totalKnockbackMultiplier = 1;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float damageMultiplier = 1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float lifeStealChance = 0;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float lifeStealHealAmount = 1;
 
 	// Subscribes all GAS Attribute functions to their respective Attributes
 	void SubscribeToAttributeChangeEvents();

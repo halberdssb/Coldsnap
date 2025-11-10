@@ -23,6 +23,8 @@ UPlayerMovementAttributeSet::UPlayerMovementAttributeSet()
 	InitTotalKnockbackMultiplier(BaseTotalKnockbackMultiplier);
 	InitDamageMultiplier(BaseDamageMultiplier);
 	InitGravityScale(BaseGravityScale);
+	InitLifeStealChance(BaseLifeStealChance);
+	InitLifeStealHealAmount(BaseLifeStealHealAmount);
 }
 
 void UPlayerMovementAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -95,6 +97,14 @@ void UPlayerMovementAttributeSet::PostAttributeChange(const FGameplayAttribute& 
 	else if (Attribute == GetGravityScaleAttribute())
 	{
 		OnGravityScaleChanged.Broadcast(this, OldValue, NewValue);
+	}
+	else if (Attribute == GetLifeStealChanceAttribute())
+	{
+		OnLifeStealChanceChanged.Broadcast(this, OldValue, NewValue);
+	}
+	else if (Attribute == GetLifeStealHealAmountAttribute())
+	{
+		OnLifeStealHealAmountChanged.Broadcast(this, OldValue, NewValue);
 	}
 }
 
