@@ -168,6 +168,6 @@ private:
 	float BaseTotalKnockbackMultiplier = 1;
 	float BaseDamageMultiplier = 1;
 	float BaseGravityScale = 1;
-	float BaseLifeStealChance = 0;
-	float BaseLifeStealHealAmount = 1;
+	float BaseLifeStealChance = 1;
+	float BaseLifeStealHealAmount = 20;
 };
