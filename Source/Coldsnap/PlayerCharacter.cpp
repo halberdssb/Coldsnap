@@ -99,6 +99,12 @@ void APlayerCharacter::SubscribeToAttributeChangeEvents()
 	// Bind event to max heat meter changed
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(HeatSet->GetMaxHeatAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateMaxHeat);
+	// Bind event to life steal chance
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetLifeStealChanceAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateLifeStealChance);
+	// Bind event to life steal amount
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetLifeStealHealAmountAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateLifeStealHealAmount);
 }
 
 void APlayerCharacter::SetUpAbilitySystemComponent()
@@ -307,6 +313,16 @@ void APlayerCharacter::UpdateHeatGainMultiplier(const FOnAttributeChangeData& Da
 void APlayerCharacter::UpdateGravityScale(const FOnAttributeChangeData& Data)
 {
 	CharacterMovementComp->GravityScale = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateLifeStealChance(const FOnAttributeChangeData& Data)
+{
+	lifeStealChance = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateLifeStealHealAmount(const FOnAttributeChangeData& Data)
+{
+	lifeStealHealAmount = Data.NewValue;
 }
 
 
