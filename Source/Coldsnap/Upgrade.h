@@ -41,11 +41,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class UUpgradeGameplayEffect> fuelGameplayEffect;
 
-	// Chance for the upgrade to be dropped by an enemy -
-	// should eventually be moved to enemy-specific drop tables
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float dropChance;
-
 protected:
 	virtual void BeginPlay() override;
 };

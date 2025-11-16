@@ -14,10 +14,6 @@
 UUpgrade::UUpgrade()
 {
 	PrimaryComponentTick.bCanEverTick = false;
-
-	// Development test value - all upgrades have 20% drop chance
-	dropChance = 0.2;
-	// ...
 }
 
 

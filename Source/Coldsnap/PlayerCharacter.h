@@ -8,11 +8,12 @@
 #include "AbilitySystemComponent.h"
 #include "GameplayEffectTypes.h"
 #include "AttributeSet.h"
+#include "FEquippedUpgradeData.h"
 #include "GenericTeamAgentInterface.h"
 #include "PlayerCharacter.generated.h"
 
 /*
- * Default player class for Coldsnap
+ * Default player class for COLDSNAP
  *
  * Jeff Stevenson
  * 10.24.25
@@ -27,6 +28,10 @@ public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
 
+	// Equipped Upgrade Inventory
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	TMap<FEquippedUpgradeData, int32> EquippedUpgrades;
+	
 	virtual void Tick(float DeltaTime) override;
 
 	// Handles GAS replication
@@ -74,7 +79,7 @@ protected:
 	TObjectPtr<class UPlayerAbilitySystemComponent> PlayerAbilitySystemComp;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	TObjectPtr<class UCharacterMovementComponent> CharacterMovementComp;	
+	TObjectPtr<class UCharacterMovementComponent> CharacterMovementComp;
 
 	// Attribute Sets
 	UPROPERTY()
