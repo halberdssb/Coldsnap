@@ -10,6 +10,9 @@
 UAttackHitboxManager::UAttackHitboxManager()
 {
 	classHitFilter = IHittable::UClassType::StaticClass();
+	
+	// Ignore self
+	IgnoredActors.Add(GetOwner());
 }
 
 
@@ -24,15 +27,11 @@ TArray<AActor*> UAttackHitboxManager::CreateAttackHitbox(FHitboxData InHitboxDat
 	// Object types to trace for - only pawns
 	TArray<TEnumAsByte<EObjectTypeQuery>> objectTypes = {UEngineTypes::ConvertToObjectType(ECC_Pawn)};
 	
-	// Ignore self
-	TArray<AActor*> actorsToIgnore;
-	actorsToIgnore.Add(GetOwner());
-	
 	TArray<AActor*> overlappingActors;
 
 	// Do overlap sphere cast
 	UKismetSystemLibrary::CapsuleOverlapActorsWithOrientation(GetWorld(), InHitboxData.PositionOffset, InHitboxData.Radius, InHitboxData.Height / 2,
-	InHitboxData.Rotation, objectTypes, nullptr, actorsToIgnore, overlappingActors);
+	InHitboxData.Rotation, objectTypes, nullptr, IgnoredActors, overlappingActors);
 	
 	// Return if no actors found
 	if (overlappingActors.Num() < 0) return TArray<AActor*>();
@@ -40,9 +39,9 @@ TArray<AActor*> UAttackHitboxManager::CreateAttackHitbox(FHitboxData InHitboxDat
 	// Remove any actors already hit by this attack - already hit actors is reset at start of each attack
 	for (AActor* overlappingActor : overlappingActors)
 	{
-		if (!ActorsAlreadyHit.Contains(overlappingActor))
+		if (!IgnoredActors.Contains(overlappingActor))
 		{
-			ActorsAlreadyHit.Add(overlappingActor);
+			IgnoredActors.Add(overlappingActor);
 		}
 		else
 		{
@@ -52,6 +51,12 @@ TArray<AActor*> UAttackHitboxManager::CreateAttackHitbox(FHitboxData InHitboxDat
 	// Fire hit actors delegate if any actors were hit
 	HitboxHitActorsDelegate.Broadcast(overlappingActors, InHitboxData);
 	return overlappingActors;
+}
+
+void UAttackHitboxManager::ResetIgnoredHitActors()
+{
+	IgnoredActors.Empty();
+	IgnoredActors.Add(GetOwner());
 }
 
 // method for applying damage effects, heat gain effects, other effects on hit - currently implemented in blueprints

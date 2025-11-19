@@ -56,5 +56,5 @@ public:
 private:
 	float BaseHeat = 0;
 	float BaseMaxHeat = 100;
-	float BaseHeatGainMultiplier = 1.5;
+	float BaseHeatGainMultiplier = 1;
 };

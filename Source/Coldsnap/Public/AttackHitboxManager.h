@@ -24,12 +24,15 @@ public:
 
 	// array of actors already hit by current hitbox
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<AActor*> ActorsAlreadyHit;
+	TArray<AActor*> IgnoredActors;
 
 	// Creates a capsule hitbox
 	UFUNCTION(BlueprintCallable, Category = "Attack Hitbox Manager")
 	TArray<AActor*> CreateAttackHitbox(FHitboxData InHitboxData);
 
+	// Resets list of ignored actors (except for self)
+	UFUNCTION(BlueprintCallable, Category = "Attack Hitbox Manager")
+	void ResetIgnoredHitActors();
 	
 protected:
 	// Called when the game starts
