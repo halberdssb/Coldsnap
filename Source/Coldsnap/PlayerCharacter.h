@@ -8,11 +8,12 @@
 #include "AbilitySystemComponent.h"
 #include "GameplayEffectTypes.h"
 #include "AttributeSet.h"
+#include "FEquippedUpgradeData.h"
 #include "GenericTeamAgentInterface.h"
 #include "PlayerCharacter.generated.h"
 
 /*
- * Default player class for Coldsnap
+ * Default player class for COLDSNAP
  *
  * Jeff Stevenson
  * 10.24.25
@@ -27,6 +28,10 @@ public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
 
+	// Equipped Upgrade Inventory
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	TMap<FEquippedUpgradeData, int32> EquippedUpgrades;
+	
 	virtual void Tick(float DeltaTime) override;
 
 	// Handles GAS replication
@@ -63,6 +68,8 @@ public:
 	void UpdateMaxHeat(const FOnAttributeChangeData& Data);
 	void UpdateHeatGainMultiplier(const FOnAttributeChangeData& Data);
 	void UpdateGravityScale(const FOnAttributeChangeData& Data);
+	void UpdateLifeStealChance(const FOnAttributeChangeData& Data);
+	void UpdateLifeStealHealAmount(const FOnAttributeChangeData& Data);
 
 protected:
 	virtual void BeginPlay() override;
@@ -72,7 +79,7 @@ protected:
 	TObjectPtr<class UPlayerAbilitySystemComponent> PlayerAbilitySystemComp;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	TObjectPtr<class UCharacterMovementComponent> CharacterMovementComp;	
+	TObjectPtr<class UCharacterMovementComponent> CharacterMovementComp;
 
 	// Attribute Sets
 	UPROPERTY()
@@ -104,6 +111,10 @@ protected:
 	float totalKnockbackMultiplier = 1;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float damageMultiplier = 1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float lifeStealChance = 0;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float lifeStealHealAmount = 1;
 
 	// Subscribes all GAS Attribute functions to their respective Attributes
 	void SubscribeToAttributeChangeEvents();
