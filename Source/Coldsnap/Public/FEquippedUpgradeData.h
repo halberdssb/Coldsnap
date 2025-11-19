@@ -11,6 +11,15 @@
  * 11.15.25
  */
 
+UENUM(BlueprintType, Category = "Upgrades")
+enum EUpgradeEquipLocation
+{
+	Arms,
+	Legs,
+	Torso,
+	Fuel
+};
+
 USTRUCT(BlueprintType)
 struct FEquippedUpgradeData
 {
@@ -23,10 +32,14 @@ public:
 	FEquippedUpgradeData();
 	
 	FEquippedUpgradeData(TSubclassOf<AActor> InPickupObjectClass, TSubclassOf<UUpgradeGameplayEffect> InEquippedEffect);
-
+	
 	// actor class of upgrade pickup
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<AActor> PickupObjectClass;
+
+	// how upgrade is equipped
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TEnumAsByte<EUpgradeEquipLocation> EquipLocation;
 
 	// equipped effect of upgrade
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
