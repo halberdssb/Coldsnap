@@ -10,16 +10,20 @@
 UAttackHitboxManager::UAttackHitboxManager()
 {
 	classHitFilter = IHittable::UClassType::StaticClass();
-	
-	// Ignore self
-	IgnoredActors.Add(GetOwner());
 }
 
 
 void UAttackHitboxManager::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	// Ignore self and child component actors
+	IgnoredActors.Add(GetOwner());
+	/*TArray<AActor*> ChildActorsOfSelf;
+	GetOwner()->GetAllChildActors(ChildActorsOfSelf, true);
+	for (AActor* ChildActor : ChildActorsOfSelf)
+	{
+		IgnoredActors.Add(ChildActor);
+	}*/
 }
 
 TArray<AActor*> UAttackHitboxManager::CreateAttackHitbox(FHitboxData InHitboxData)

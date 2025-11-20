@@ -20,6 +20,6 @@ class COLDSNAP_API UUpgradeGameplayEffect : public UGameplayEffect
 
 public:
 	// Tooltip field to be edited in inspector field in blueprints - displayed by equipment widget to describe effect
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(MultiLine=true))
 	FString tooltip;
 };
