@@ -99,6 +99,18 @@ void APlayerCharacter::SubscribeToAttributeChangeEvents()
 	// Bind event to max heat meter changed
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(HeatSet->GetMaxHeatAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateMaxHeat);
+	// Bind event to max heat meter changed
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(HeatSet->GetHeatGainMultiplierAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateHeatGainMultiplier);
+	// Bind event to max heat meter changed
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(HeatSet->GetHeatDrainValueAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateHeatDrainValue);
+	// Bind event to max heat meter changed
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(HeatSet->GetHeatDrainMultiplierAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateHeatDrainMultiplier);
+	// Bind event to max heat meter changed
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(HeatSet->GetMaxHeatAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateMaxHeat);
 	// Bind event to life steal chance
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetLifeStealChanceAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateLifeStealChance);
@@ -127,7 +139,8 @@ void APlayerCharacter::SetUpAbilitySystemComponent()
 				// create ability spec and grant to ASC
 				FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityInputMapping.GameplayAbility, DefaultAbilityLevel, AbilityInputMapping.InputID);
 				PlayerAbilitySystemComp->GiveAbility(AbilitySpec);
-			
+				PlayerAbilitySystemComp->MappedAbilitySpecHandles.Add(AbilitySpec.Handle);
+
 				UE_LOG(LogTemp, Warning, TEXT("Added ability!"));
 			}
 		}	
@@ -308,6 +321,14 @@ void APlayerCharacter::UpdateMaxHeat(const FOnAttributeChangeData& Data)
 void APlayerCharacter::UpdateHeatGainMultiplier(const FOnAttributeChangeData& Data)
 {
 	// not implemented yet
+}
+
+void APlayerCharacter::UpdateHeatDrainValue(const FOnAttributeChangeData& Data)
+{
+}
+
+void APlayerCharacter::UpdateHeatDrainMultiplier(const FOnAttributeChangeData& Data)
+{
 }
 
 void APlayerCharacter::UpdateGravityScale(const FOnAttributeChangeData& Data)

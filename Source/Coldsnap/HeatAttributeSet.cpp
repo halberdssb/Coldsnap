@@ -17,6 +17,8 @@ UHeatAttributeSet::UHeatAttributeSet()
 	InitHeat(BaseHeat);
 	InitMaxHeat(BaseMaxHeat);
 	InitHeatGainMultiplier(BaseHeatGainMultiplier);
+	InitHeatDrainValue(BaseHeatDrainValue);
+	InitHeatDrainMultiplier(BaseHeatDrainMultiplier);
 }
 
 void UHeatAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
