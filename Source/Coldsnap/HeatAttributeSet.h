@@ -35,11 +35,19 @@ public:
 	// heat gain multiplier
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData HeatGainMultiplier;
+	// heat drain base value
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData HeatDrainValue;
+	// heat drain multiplier
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData HeatDrainMultiplier;
 
 
 	ATTRIBUTE_ACCESSORS_BASIC(UHeatAttributeSet, Heat);
 	ATTRIBUTE_ACCESSORS_BASIC(UHeatAttributeSet, MaxHeat);
 	ATTRIBUTE_ACCESSORS_BASIC(UHeatAttributeSet, HeatGainMultiplier);
+	ATTRIBUTE_ACCESSORS_BASIC(UHeatAttributeSet, HeatDrainValue);
+	ATTRIBUTE_ACCESSORS_BASIC(UHeatAttributeSet, HeatDrainMultiplier);
 	
 	// attribute changed functions
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
@@ -52,9 +60,15 @@ public:
 	FAttributeChangedEvent OnMaxHeatChanged;
 	UPROPERTY(BlueprintAssignable)
 	FAttributeChangedEvent OnHeatGainMultiplierChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnHeatDrainValueChanged;
+	UPROPERTY(BlueprintAssignable)
+	FAttributeChangedEvent OnHeatDrainMultiplierChanged;
 	
 private:
 	float BaseHeat = 0;
 	float BaseMaxHeat = 100;
 	float BaseHeatGainMultiplier = 1;
+	float BaseHeatDrainValue = -1;
+	float BaseHeatDrainMultiplier = 1;
 };

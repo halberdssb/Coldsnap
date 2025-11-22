@@ -67,6 +67,8 @@ public:
 	void UpdateHeat(const FOnAttributeChangeData& Data);
 	void UpdateMaxHeat(const FOnAttributeChangeData& Data);
 	void UpdateHeatGainMultiplier(const FOnAttributeChangeData& Data);
+	void UpdateHeatDrainValue(const FOnAttributeChangeData& Data);
+	void UpdateHeatDrainMultiplier(const FOnAttributeChangeData& Data);
 	void UpdateGravityScale(const FOnAttributeChangeData& Data);
 	void UpdateLifeStealChance(const FOnAttributeChangeData& Data);
 	void UpdateLifeStealHealAmount(const FOnAttributeChangeData& Data);

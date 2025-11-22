@@ -11,6 +11,9 @@ AEnemy::AEnemy()
 
 	// set up GAS systems
 	HealthSet = CreateDefaultSubobject<UHealthAttributeSet>(TEXT("Health"));
+	HealthSet->InitHealth(1);
+	HealthSet->InitMaxHealth(1);
+	HealthSet->InitDamage(1);
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	AbilitySystemComponent->AddAttributeSetSubobject<UHealthAttributeSet>(HealthSet);
 }
