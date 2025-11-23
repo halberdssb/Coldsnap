@@ -23,4 +23,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	UGameplayAbilityInputData* AbilityInputMappings;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Abilities")
+	TArray<FGameplayAbilitySpecHandle> MappedAbilitySpecHandles;
 };
