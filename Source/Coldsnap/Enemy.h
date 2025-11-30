@@ -37,6 +37,10 @@ public:
 	//  Drop Table
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Drops)
 	TObjectPtr<UItemDropTable> DropTable;
+
+	// Audio played when hit
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Audio)
+	UAudioComponent* HitAudio;
 	
 	// GAS properties
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities)
