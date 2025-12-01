@@ -97,10 +97,10 @@ protected:
 
 	// Blueprint values changed by GAS attributes
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	float dashDuration = 0.5;
+	float dashDuration = 0.4;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	FVector dashForce = FVector(2000,2000,0);
-	FVector baseDashForce = FVector(2000,2000,0);
+	FVector dashForce = FVector(3000,3000,0);
+	FVector baseDashForce = FVector(3000,3000,0);
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float attackSpeed = 1;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)

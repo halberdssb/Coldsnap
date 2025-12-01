@@ -159,7 +159,7 @@ private:
 	float BaseFallingDeceleration = 0;
 	float BaseAirControl = .95;
 	float BaseAirBoostMultiplier = 2;
-	float BaseDashForce = 4;
+	float BaseDashForce = 1;
 	float BaseAttackSpeed = 1.4;
 	float BaseDashJumpValue = 0;
 	float BaseJumpForce = 420;
