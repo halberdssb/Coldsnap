@@ -2,6 +2,7 @@
 
 
 #include "Enemy.h"
+#include "Components/AudioComponent.h"
 
 // Sets default values
 AEnemy::AEnemy()
@@ -42,7 +43,10 @@ void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 // currently unimplemented - should apply damage to health attribute
 void AEnemy::Hit_Implementation(float damage, FVector knockbackForce)
 {
-	
+	if (HitAudio)
+	{
+		HitAudio->Play();
+	}
 }
 
 void AEnemy::ApplyKnockback_Implementation(FVector knockbackDirection, float knockbackForce)
