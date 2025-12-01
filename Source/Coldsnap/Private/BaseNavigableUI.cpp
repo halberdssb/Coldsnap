@@ -10,7 +10,7 @@ void UBaseNavigableUI::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	SetButtonsArray();
+	SetButtonAndSliderArrays();
 	GetFocusColorReferences();
 
 	for (UButton* Button : UIButtons)
@@ -25,7 +25,7 @@ void UBaseNavigableUI::NativeTick(const FGeometry& MyGeometry, float InDeltaTime
 	UpdateFocusedButton();
 }
 
-void UBaseNavigableUI::SetButtonsArray()
+void UBaseNavigableUI::SetButtonAndSliderArrays()
 {
 	// get all child widgets
 	TArray<UWidget*> ChildWidgets;
@@ -38,6 +38,17 @@ void UBaseNavigableUI::SetButtonsArray()
 		{
 			UButton* WidgetButton = Cast<UButton>(Widget);
 			UIButtons.Add(WidgetButton);
+		}
+	}
+
+	// set slider array
+	// search child widgets for buttons and add to array
+	for (UWidget* Widget : ChildWidgets)
+	{
+		if (Widget->IsA(USlider::StaticClass()))
+		{
+			USlider* WidgetSlider = Cast<USlider>(Widget);
+			UISliders.Add(WidgetSlider);
 		}
 	}
 }
@@ -63,16 +74,39 @@ void UBaseNavigableUI::UpdateFocusedButton()
 {
 	if (!IsInViewport() || UIButtons.Num() <= 0) return;
 
+	bool buttonHasFocus = false;
 	for (UButton* Button : UIButtons)
 	{
 		// update button color based on focus
 		if (Button->HasKeyboardFocus())
 		{
+			buttonHasFocus = true;
 			Button->SetBackgroundColor(FocusedColor);
 		}
 		else
 		{
 			Button->SetBackgroundColor(UnfocusedColor);
 		}
+	}
+
+	for (USlider* Slider : UISliders)
+	{
+		// update button color based on focus
+		if (Slider->HasKeyboardFocus())
+		{
+			buttonHasFocus = true;
+			Slider->SetSliderBarColor(FocusedColor);
+		}
+		else
+		{
+			Slider->SetSliderBarColor(UnfocusedColor);
+		}
+	}
+
+	// ensure some button always has focus
+	if (!buttonHasFocus)
+	{
+		UIButtons[0]->SetKeyboardFocus();
+		UIButtons[0]->SetBackgroundColor(FocusedColor);
 	}
 }

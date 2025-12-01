@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
+#include "Components/Slider.h"
 #include "BaseNavigableUI.generated.h"
 
 /**
@@ -27,6 +28,9 @@ public:
 	TArray<UButton*> UIButtons;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Navigable UI")
+	TArray<USlider*> UISliders;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Navigable UI")
 	FButtonStyle ButtonStyle;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Navigable UI")
@@ -37,7 +41,7 @@ public:
 
 private:
 	// gets all child button widgets in tree and adds them to UIButtons array
-	void SetButtonsArray();
+	void SetButtonAndSliderArrays();
 	
 	// gets button style and focus colors based on first child button style - ensures matching styles across all buttons
 	void GetFocusColorReferences();
