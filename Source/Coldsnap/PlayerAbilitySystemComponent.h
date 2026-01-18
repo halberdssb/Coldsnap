@@ -26,4 +26,13 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Abilities")
 	TArray<FGameplayAbilitySpecHandle> MappedAbilitySpecHandles;
+
+	UFUNCTION(BlueprintCallable, Category = "Data Persistence")
+	TArray<FGameplayEffectSpec> GetAllAppliedGameplayEffectSpecs();
+
+protected:
+	TArray<FGameplayEffectSpec> AppliedGameplayEffects;
+
+	UFUNCTION()
+	void AddGameplayEffectToAppliedEffectsArray(UAbilitySystemComponent* InASC, const FGameplayEffectSpec& InEffectSpec, FActiveGameplayEffectHandle InEffectHandle);
 };
