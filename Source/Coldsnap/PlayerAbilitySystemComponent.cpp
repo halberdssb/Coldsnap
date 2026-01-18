@@ -12,5 +12,16 @@
 
 UPlayerAbilitySystemComponent::UPlayerAbilitySystemComponent()
 {
-	
+	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UPlayerAbilitySystemComponent::AddGameplayEffectToAppliedEffectsArray);
+}
+
+TArray<FGameplayEffectSpec> UPlayerAbilitySystemComponent::GetAllAppliedGameplayEffectSpecs()
+{
+	return AppliedGameplayEffects;
+}
+
+void UPlayerAbilitySystemComponent::AddGameplayEffectToAppliedEffectsArray(UAbilitySystemComponent* InASC, const FGameplayEffectSpec& InEffectSpec,
+                                                                           FActiveGameplayEffectHandle InEffectHandle)
+{
+	AppliedGameplayEffects.Add(InEffectSpec);
 }
