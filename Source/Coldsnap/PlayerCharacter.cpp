@@ -10,6 +10,7 @@
 #include "PlayerMovementAttributeSet.h"
 #include "PlayerAbilitySystemComponent.h"
 #include "EnhancedInputComponent.h"
+#include "GASDataPersistenceHandler.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 /*
@@ -29,6 +30,7 @@ APlayerCharacter::APlayerCharacter()
 	HealthSet = CreateDefaultSubobject<UHealthAttributeSet>(TEXT("HealthAttributeSet"));
 	MovementSet = CreateDefaultSubobject<UPlayerMovementAttributeSet>(TEXT("MovementAttributeSet"));
 	HeatSet = CreateDefaultSubobject<UHeatAttributeSet>(TEXT("HeatAttributeSet"));
+	DataPersistenceHandler = CreateDefaultSubobject<UGASDataPersistenceHandler>(TEXT("DataPersistenceHandler"));
 	PlayerAbilitySystemComp->AddAttributeSetSubobject<UHealthAttributeSet>(HealthSet);
 	PlayerAbilitySystemComp->AddAttributeSetSubobject<UPlayerMovementAttributeSet>(MovementSet);
 
@@ -43,10 +45,14 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// set up GAS
 	PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
 	CharacterMovementComp->MaxWalkSpeed = 600;
 
 	SetUpAbilitySystemComponent();
+
+	DataPersistenceHandler->InitializeDataTracking();
 }
 
 void APlayerCharacter::SubscribeToAttributeChangeEvents()
@@ -280,6 +286,7 @@ void APlayerCharacter::UpdateAttackSpeed(const FOnAttributeChangeData& Data)
 
 void APlayerCharacter::UpdateAllowJumpDuringDash(const FOnAttributeChangeData& Data)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Update jump during dash"))
 	allowDashDuringJump = Data.NewValue > 0;
 }
 
