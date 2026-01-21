@@ -83,6 +83,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<class UCharacterMovementComponent> CharacterMovementComp;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TObjectPtr<class UGASDataPersistenceHandler> DataPersistenceHandler;
+
 	// Attribute Sets
 	UPROPERTY()
 	TObjectPtr<class UHealthAttributeSet> HealthSet;

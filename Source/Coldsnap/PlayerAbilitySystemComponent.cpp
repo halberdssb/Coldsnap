@@ -17,11 +17,18 @@ UPlayerAbilitySystemComponent::UPlayerAbilitySystemComponent()
 
 TArray<FGameplayEffectSpec> UPlayerAbilitySystemComponent::GetAllAppliedGameplayEffectSpecs()
 {
-	return AppliedGameplayEffects;
+	return AppliedUpgradeEffects;
 }
 
 void UPlayerAbilitySystemComponent::AddGameplayEffectToAppliedEffectsArray(UAbilitySystemComponent* InASC, const FGameplayEffectSpec& InEffectSpec,
                                                                            FActiveGameplayEffectHandle InEffectHandle)
 {
-	AppliedGameplayEffects.Add(InEffectSpec);
+	// check if the effect is an upgrade effect and add to list of applied upgrades if so
+	FGameplayTagContainer TagContainer;
+	InEffectSpec.GetAllGrantedTags(TagContainer);
+	
+	if (TagContainer.HasTag(FGameplayTag::RequestGameplayTag(FName("Upgrade"))))
+	{
+		AppliedUpgradeEffects.Add(InEffectSpec);
+	}
 }

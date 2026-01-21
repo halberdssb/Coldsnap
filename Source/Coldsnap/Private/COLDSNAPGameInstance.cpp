@@ -3,14 +3,15 @@
 
 #include "COLDSNAPGameInstance.h"
 
-void UCOLDSNAPGameInstance::SavePlayerGASData(TArray<FGameplayEffectSpec> InActiveGameplayEffects)
+void UCOLDSNAPGameInstance::SavePlayerGASData(TArray<FGameplayEffectSpec> InActiveGameplayEffects, float InCurrentHealth)
 {
 	ActiveGameplayEffects = InActiveGameplayEffects;
 	UE_LOG(LogTemp, Warning, TEXT("Saved %d effects from player to game instance."), ActiveGameplayEffects.Num());
-
+	CurrentHealth = InCurrentHealth;
 }
 
-TArray<FGameplayEffectSpec> UCOLDSNAPGameInstance::LoadPlayerGASData()
+TArray<FGameplayEffectSpec> UCOLDSNAPGameInstance::LoadPlayerGASData(float& OutCurrentHealth)
 {
+	OutCurrentHealth = CurrentHealth;
 	return ActiveGameplayEffects;
 }
