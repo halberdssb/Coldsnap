@@ -72,6 +72,7 @@ public:
 	void UpdateGravityScale(const FOnAttributeChangeData& Data);
 	void UpdateLifeStealChance(const FOnAttributeChangeData& Data);
 	void UpdateLifeStealHealAmount(const FOnAttributeChangeData& Data);
+	void UpdateHealth(const FOnAttributeChangeData& Data);
 
 protected:
 	virtual void BeginPlay() override;
@@ -93,6 +94,9 @@ protected:
 	TObjectPtr<class UPlayerMovementAttributeSet> MovementSet;
 	UPROPERTY()
 	TObjectPtr<class UHeatAttributeSet> HeatSet;
+
+	UPROPERTY()
+	TObjectPtr<class UCOLDSNAPGameInstance> GameInstance;
 
 	// Hitbox creator component
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)

@@ -23,6 +23,9 @@ public:
 	void SavePlayerGASData(TArray<FGameplayEffectSpec> InActiveGameplayEffects, float InCurrentHealth);
 	TArray<FGameplayEffectSpec> LoadPlayerGASData(float& OutCurrentHealth);
 
+	void SetCurrentHealth(float InCurrentHealth);
+	const float GetCurrentHealth();
+
 private:
 	TArray<FGameplayEffectSpec> ActiveGameplayEffects;
 	float CurrentHealth;

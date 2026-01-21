@@ -47,6 +47,7 @@ bool UGASDataPersistenceHandler::SaveGASDataToGameInstance()
 
 	// if game instance exists in correct type, save active effects to instance to be loaded in next scene
 	float CurrentHealth = PlayerAbilitySystemComponent->GetSet<UHealthAttributeSet>()->GetHealthAttribute().GetNumericValue(PlayerAbilitySystemComponent->GetSet<UHealthAttributeSet>());
+	UE_LOG(LogTemp, Log, TEXT("Current Health: %f"), CurrentHealth);
 	GameInstance->SavePlayerGASData(ActiveEffects, CurrentHealth);
 	return true;
 }

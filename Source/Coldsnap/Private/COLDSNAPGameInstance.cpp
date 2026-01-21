@@ -15,3 +15,14 @@ TArray<FGameplayEffectSpec> UCOLDSNAPGameInstance::LoadPlayerGASData(float& OutC
 	OutCurrentHealth = CurrentHealth;
 	return ActiveGameplayEffects;
 }
+
+void UCOLDSNAPGameInstance::SetCurrentHealth(float InCurrentHealth)
+{
+	CurrentHealth = InCurrentHealth;
+}
+
+const float UCOLDSNAPGameInstance::GetCurrentHealth()
+{
+	return CurrentHealth;
+}
+

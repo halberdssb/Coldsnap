@@ -34,6 +34,9 @@ APlayerCharacter::APlayerCharacter()
 	PlayerAbilitySystemComp->AddAttributeSetSubobject<UHealthAttributeSet>(HealthSet);
 	PlayerAbilitySystemComp->AddAttributeSetSubobject<UPlayerMovementAttributeSet>(MovementSet);
 
+	// get custom game instance reference
+	GameInstance = Cast<UCOLDSNAPGameInstance>(GetGameInstance());
+
 	// Add hitbox manager component
 	AttackHitboxManager = CreateDefaultSubobject<UAttackHitboxManager>(TEXT("AttackHitboxManager"));
 	
@@ -123,6 +126,9 @@ void APlayerCharacter::SubscribeToAttributeChangeEvents()
 	// Bind event to life steal amount
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetLifeStealHealAmountAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateLifeStealHealAmount);
+	// Bind event to update game instance health tracker
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(HealthSet->GetHealthAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateHealth);
 }
 
 void APlayerCharacter::SetUpAbilitySystemComponent()
@@ -155,6 +161,14 @@ void APlayerCharacter::SetUpAbilitySystemComponent()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Player Ability Input Mappings Asset is null in Player Ability System Component"));
 	}
+	
+	// if game instance exists and there is saved health, set health to that value
+	if (GameInstance)
+	{
+		float SavedHealth = GameInstance->GetCurrentHealth() > 0 ? GameInstance->GetCurrentHealth() : HealthSet->GetMaxHealth();
+		HealthSet->InitHealth(SavedHealth);
+	}
+	
 }
 
 void APlayerCharacter::OnAbilityInputPressed(int32 InputID)
@@ -351,6 +365,11 @@ void APlayerCharacter::UpdateLifeStealChance(const FOnAttributeChangeData& Data)
 void APlayerCharacter::UpdateLifeStealHealAmount(const FOnAttributeChangeData& Data)
 {
 	lifeStealHealAmount = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateHealth(const FOnAttributeChangeData& Data)
+{
+	GameInstance->SetCurrentHealth(Data.NewValue);
 }
 
 
