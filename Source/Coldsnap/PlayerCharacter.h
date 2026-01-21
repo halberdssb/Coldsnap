@@ -95,7 +95,7 @@ protected:
 	UPROPERTY()
 	TObjectPtr<class UHeatAttributeSet> HeatSet;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<class UCOLDSNAPGameInstance> GameInstance;
 
 	// Hitbox creator component

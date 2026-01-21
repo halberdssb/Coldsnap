@@ -23,10 +23,12 @@ public:
 	void SavePlayerGASData(TArray<FGameplayEffectSpec> InActiveGameplayEffects, float InCurrentHealth);
 	TArray<FGameplayEffectSpec> LoadPlayerGASData(float& OutCurrentHealth);
 
+	UFUNCTION(BlueprintCallable)
 	void SetCurrentHealth(float InCurrentHealth);
+	UFUNCTION(BlueprintCallable)
 	const float GetCurrentHealth();
 
 private:
 	TArray<FGameplayEffectSpec> ActiveGameplayEffects;
-	float CurrentHealth;
+	float CurrentHealth = 200;
 };
