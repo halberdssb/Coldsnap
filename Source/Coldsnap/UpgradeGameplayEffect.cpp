@@ -11,13 +11,16 @@
  * 10.24.25
  */
 
-UUpgradeGameplayEffect::UUpgradeGameplayEffect()
+UUpgradeGameplayEffect::UUpgradeGameplayEffect(const FObjectInitializer& ObjectInitializer)
 {
+	DurationPolicy = EGameplayEffectDurationType::Infinite;
+	
 	// add the upgrade tag to the granted tags list
-	UTargetTagsGameplayEffectComponent* TargetTags = CreateDefaultSubobject<UTargetTagsGameplayEffectComponent>(TEXT("Tags"));
+	UTargetTagsGameplayEffectComponent* TargetTags = ObjectInitializer.CreateDefaultSubobject<UTargetTagsGameplayEffectComponent>(this, TEXT("TargetTagsGameplayEffectComponent"));
 
 	FInheritedTagContainer TagContainer;
 	TagContainer.Added.AddTag(FGameplayTag::RequestGameplayTag(FName("Upgrade")));
 
 	TargetTags->SetAndApplyTargetTagChanges(TagContainer);
+	GEComponents.Add(TargetTags);
 }
