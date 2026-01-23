@@ -9,6 +9,12 @@
 #include "Components/ActorComponent.h"
 #include "GASDataPersistenceHandler.generated.h"
 
+/*
+ * Component that handles saving and loading GAS data for the player between scenes with the game instance
+ *
+ * Jeff Stevenson
+ * 1.17.25
+ */
 
 UCLASS(Blueprintable, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class COLDSNAP_API UGASDataPersistenceHandler : public UActorComponent
