@@ -10,6 +10,7 @@
 #include "PlayerMovementAttributeSet.h"
 #include "PlayerAbilitySystemComponent.h"
 #include "EnhancedInputComponent.h"
+#include "GASDataPersistenceHandler.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 /*
@@ -29,8 +30,12 @@ APlayerCharacter::APlayerCharacter()
 	HealthSet = CreateDefaultSubobject<UHealthAttributeSet>(TEXT("HealthAttributeSet"));
 	MovementSet = CreateDefaultSubobject<UPlayerMovementAttributeSet>(TEXT("MovementAttributeSet"));
 	HeatSet = CreateDefaultSubobject<UHeatAttributeSet>(TEXT("HeatAttributeSet"));
+	DataPersistenceHandler = CreateDefaultSubobject<UGASDataPersistenceHandler>(TEXT("DataPersistenceHandler"));
 	PlayerAbilitySystemComp->AddAttributeSetSubobject<UHealthAttributeSet>(HealthSet);
 	PlayerAbilitySystemComp->AddAttributeSetSubobject<UPlayerMovementAttributeSet>(MovementSet);
+
+	// get custom game instance reference
+	GameInstance = Cast<UCOLDSNAPGameInstance>(GetGameInstance());
 
 	// Add hitbox manager component
 	AttackHitboxManager = CreateDefaultSubobject<UAttackHitboxManager>(TEXT("AttackHitboxManager"));
@@ -43,10 +48,14 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// set up GAS
 	PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
 	CharacterMovementComp->MaxWalkSpeed = 600;
 
 	SetUpAbilitySystemComponent();
+
+	DataPersistenceHandler->InitializeDataTracking();
 }
 
 void APlayerCharacter::SubscribeToAttributeChangeEvents()
@@ -117,6 +126,9 @@ void APlayerCharacter::SubscribeToAttributeChangeEvents()
 	// Bind event to life steal amount
 	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(MovementSet->GetLifeStealHealAmountAttribute())
 		.AddUObject(this, &APlayerCharacter::UpdateLifeStealHealAmount);
+	// Bind event to update game instance health tracker
+	PlayerAbilitySystemComp->GetGameplayAttributeValueChangeDelegate(HealthSet->GetHealthAttribute())
+		.AddUObject(this, &APlayerCharacter::UpdateHealth);
 }
 
 void APlayerCharacter::SetUpAbilitySystemComponent()
@@ -149,6 +161,14 @@ void APlayerCharacter::SetUpAbilitySystemComponent()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Player Ability Input Mappings Asset is null in Player Ability System Component"));
 	}
+	
+	// if game instance exists and there is saved health, set health to that value
+	if (GameInstance)
+	{
+		float SavedHealth = GameInstance->GetCurrentHealth() > 0 ? GameInstance->GetCurrentHealth() : HealthSet->GetMaxHealth();
+		HealthSet->InitHealth(SavedHealth);
+	}
+	
 }
 
 void APlayerCharacter::OnAbilityInputPressed(int32 InputID)
@@ -280,6 +300,7 @@ void APlayerCharacter::UpdateAttackSpeed(const FOnAttributeChangeData& Data)
 
 void APlayerCharacter::UpdateAllowJumpDuringDash(const FOnAttributeChangeData& Data)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Update jump during dash"))
 	allowDashDuringJump = Data.NewValue > 0;
 }
 
@@ -344,6 +365,11 @@ void APlayerCharacter::UpdateLifeStealChance(const FOnAttributeChangeData& Data)
 void APlayerCharacter::UpdateLifeStealHealAmount(const FOnAttributeChangeData& Data)
 {
 	lifeStealHealAmount = Data.NewValue;
+}
+
+void APlayerCharacter::UpdateHealth(const FOnAttributeChangeData& Data)
+{
+	GameInstance->SetCurrentHealth(Data.NewValue);
 }
 
 

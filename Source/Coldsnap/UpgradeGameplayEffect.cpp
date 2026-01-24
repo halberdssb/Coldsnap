@@ -2,6 +2,7 @@
 
 
 #include "UpgradeGameplayEffect.h"
+#include "GameplayEffectComponents/TargetTagsGameplayEffectComponent.h"
 
 /**
  * Handles an individual attach point/consume effect for a given upgrade
@@ -9,3 +10,17 @@
  * Jeff Stevenson
  * 10.24.25
  */
+
+UUpgradeGameplayEffect::UUpgradeGameplayEffect(const FObjectInitializer& ObjectInitializer)
+{
+	DurationPolicy = EGameplayEffectDurationType::Infinite;
+	
+	// add the upgrade tag to the granted tags list
+	UTargetTagsGameplayEffectComponent* TargetTags = ObjectInitializer.CreateDefaultSubobject<UTargetTagsGameplayEffectComponent>(this, TEXT("TargetTagsGameplayEffectComponent"));
+
+	FInheritedTagContainer TagContainer;
+	TagContainer.Added.AddTag(FGameplayTag::RequestGameplayTag(FName("Upgrade")));
+
+	TargetTags->SetAndApplyTargetTagChanges(TagContainer);
+	GEComponents.Add(TargetTags);
+}
