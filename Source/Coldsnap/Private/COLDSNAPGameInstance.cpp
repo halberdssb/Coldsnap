@@ -1,8 +1,8 @@
 // Copyright 2025 Icebreak Studios. All rights reserved.
 
-
 #include "COLDSNAPGameInstance.h"
 
+// takes in GAS data (typically from GAS data handler) and saves it to instance
 void UCOLDSNAPGameInstance::SavePlayerGASData(TArray<FGameplayEffectSpec> InActiveGameplayEffects, float InCurrentHealth)
 {
 	ActiveGameplayEffects = InActiveGameplayEffects;
@@ -10,6 +10,7 @@ void UCOLDSNAPGameInstance::SavePlayerGASData(TArray<FGameplayEffectSpec> InActi
 	CurrentHealth = InCurrentHealth;
 }
 
+// loads the player's saved gas data for load on new scene
 TArray<FGameplayEffectSpec> UCOLDSNAPGameInstance::LoadPlayerGASData(float& OutCurrentHealth)
 {
 	OutCurrentHealth = CurrentHealth;
