@@ -27,3 +27,9 @@ const float UCOLDSNAPGameInstance::GetCurrentHealth()
 	return CurrentHealth;
 }
 
+void UCOLDSNAPGameInstance::ResetRunData()
+{
+	ActiveGameplayEffects.Empty();
+	CurrentHealth = DefaultHealth;
+}
+

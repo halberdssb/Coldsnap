@@ -9,6 +9,7 @@
 /**
  * 
  */
+
 UCLASS()
 class COLDSNAP_API UPlayerProcOnHitData : public UDataAsset
 {
