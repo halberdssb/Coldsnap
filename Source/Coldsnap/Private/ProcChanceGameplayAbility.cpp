@@ -1,8 +1,8 @@
 // Copyright 2025 Icebreak Studios. All rights reserved.
 
 
-#include "FOnHitInfo.h"
 #include "ProcChanceGameplayAbility.h"
+#include "FOnHitInfo.h"
 
 bool UProcChanceGameplayAbility::IsAbilityProcced()
 {
