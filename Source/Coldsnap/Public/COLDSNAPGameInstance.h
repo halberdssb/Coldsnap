@@ -27,8 +27,11 @@ public:
 	void SetCurrentHealth(float InCurrentHealth);
 	UFUNCTION(BlueprintCallable)
 	const float GetCurrentHealth();
+	UFUNCTION(BlueprintCallable)
+	void ResetRunData();
 
 private:
 	TArray<FGameplayEffectSpec> ActiveGameplayEffects;
 	float CurrentHealth = 200;
+	const float DefaultHealth = 200;
 };

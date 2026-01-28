@@ -9,6 +9,7 @@
 #include "GameplayEffectTypes.h"
 #include "AttributeSet.h"
 #include "FEquippedUpgradeData.h"
+#include "FOnHitInfo.h"
 #include "GenericTeamAgentInterface.h"
 #include "PlayerCharacter.generated.h"
 
@@ -18,6 +19,8 @@
  * Jeff Stevenson
  * 10.24.25
  */
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHit, FOnHitInfo, HitInfo);
 
 UCLASS()
 class COLDSNAP_API APlayerCharacter : public ACharacter, public IAbilitySystemInterface, public IGenericTeamAgentInterface
@@ -102,6 +105,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<class UAttackHitboxManager> AttackHitboxManager;
 
+
 	// Blueprint values changed by GAS attributes
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float dashDuration = 0.4;
@@ -127,6 +131,9 @@ protected:
 
 	// Subscribes all GAS Attribute functions to their respective Attributes
 	void SubscribeToAttributeChangeEvents();
+
+	UPROPERTY(BLueprintAssignable)
+	FOnHit OnHit;
 
 private:
 	FGenericTeamId TeamID;
