@@ -166,7 +166,8 @@ void APlayerCharacter::SetUpAbilitySystemComponent()
 	if (GameInstance)
 	{
 		float SavedHealth = GameInstance->GetCurrentHealth() > 0 ? GameInstance->GetCurrentHealth() : HealthSet->GetMaxHealth();
-		HealthSet->InitHealth(SavedHealth);
+		UE_LOG(LogTemp, Warning, TEXT("Loading Health From Instance %f"), SavedHealth);
+		HealthSet->SetHealth(SavedHealth);
 	}
 	
 }

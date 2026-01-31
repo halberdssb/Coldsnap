@@ -57,7 +57,6 @@ void UBaseNavigableUI::GetFocusColorReferences()
 {
 	if (UIButtons.Num() > 0)
 	{
-		UE_LOG(LogTemp,Error,TEXT("%s."), *UIButtons[0]->GetName());
 		// use first button as de-facto template for style colors
 		UButton* TemplateButton = UIButtons[0];
 		ButtonStyle = TemplateButton->GetStyle();
@@ -73,15 +72,22 @@ void UBaseNavigableUI::GetFocusColorReferences()
 void UBaseNavigableUI::UpdateFocusedButton()
 {
 	if (!IsInViewport() || UIButtons.Num() <= 0) return;
-
+	
 	bool buttonHasFocus = false;
+	bool IsMouseHovered = false;
+	UButton* FocusedButton = nullptr;
 	for (UButton* Button : UIButtons)
 	{
 		// update button color based on focus
 		if (Button->HasKeyboardFocus())
 		{
+			if (Button->IsHovered())
+			{
+				IsMouseHovered = true;
+			}
+			
 			buttonHasFocus = true;
-			Button->SetBackgroundColor(FocusedColor);
+			FocusedButton = Button;
 		}
 		else
 		{
@@ -89,13 +95,18 @@ void UBaseNavigableUI::UpdateFocusedButton()
 		}
 	}
 
+	USlider* FocusedSlider = nullptr;
 	for (USlider* Slider : UISliders)
 	{
 		// update button color based on focus
 		if (Slider->HasKeyboardFocus())
 		{
+			if (Slider->IsHovered())
+			{
+				IsMouseHovered = true;
+			}
 			buttonHasFocus = true;
-			Slider->SetSliderBarColor(FocusedColor);
+			FocusedSlider = Slider;
 		}
 		else
 		{
@@ -103,8 +114,20 @@ void UBaseNavigableUI::UpdateFocusedButton()
 		}
 	}
 
+	// if mouse is hovering over an element, don't highlight others
+	if (IsMouseHovered) return;
+	
+	// updated focused button/slider color
+	if (FocusedButton != nullptr)
+	{
+		FocusedButton->SetBackgroundColor(FocusedColor);
+	}
+	else if (FocusedSlider != nullptr)
+	{
+		FocusedSlider->SetSliderBarColor(UnfocusedColor);
+	}
 	// ensure some button always has focus
-	if (!buttonHasFocus)
+	else if (!buttonHasFocus)
 	{
 		UIButtons[0]->SetKeyboardFocus();
 		UIButtons[0]->SetBackgroundColor(FocusedColor);
