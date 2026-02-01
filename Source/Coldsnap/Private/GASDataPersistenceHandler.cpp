@@ -4,6 +4,7 @@
 #include "GASDataPersistenceHandler.h"
 
 #include "COLDSNAPGameInstance.h"
+#include "Coldsnap/HealthAttributeSet.h"
 
 // Sets default values for this component's properties
 UGASDataPersistenceHandler::UGASDataPersistenceHandler()
@@ -20,27 +21,9 @@ UGASDataPersistenceHandler::UGASDataPersistenceHandler()
 void UGASDataPersistenceHandler::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// get owner and asc
-	Player = GetOwner();
-	if (UPlayerAbilitySystemComponent* TempASC = Player->GetComponentByClass<UPlayerAbilitySystemComponent>())
-	{
-		PlayerAbilitySystemComponent = TempASC;
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Could not find AbilitySystemComponent in GASDataPersistenceHandler on owning Actor %s"), *Player->GetName());
-	}
-
-	// get game instance reference
-	if (UCOLDSNAPGameInstance* TempGameInstance = Cast<UCOLDSNAPGameInstance>(Player->GetGameInstance()))
-	{
-		UE_LOG(LogTemp, Error, TEXT("Game Instance Ref Found"));
-		GameInstance = TempGameInstance;
-	}
-
-	LoadGASDataFromGameInstance();
 }
+
+
 
 
 // Called every frame
@@ -63,7 +46,9 @@ bool UGASDataPersistenceHandler::SaveGASDataToGameInstance()
 	}
 
 	// if game instance exists in correct type, save active effects to instance to be loaded in next scene
-	GameInstance->SavePlayerGASData(ActiveEffects);
+	float CurrentHealth = PlayerAbilitySystemComponent->GetSet<UHealthAttributeSet>()->GetHealthAttribute().GetNumericValue(PlayerAbilitySystemComponent->GetSet<UHealthAttributeSet>());
+	UE_LOG(LogTemp, Log, TEXT("Current Health: %f"), CurrentHealth);
+	GameInstance->SavePlayerGASData(ActiveEffects, CurrentHealth);
 	return true;
 }
 
@@ -77,7 +62,8 @@ bool UGASDataPersistenceHandler::LoadGASDataFromGameInstance()
 	}
 
 	// get and apply all active effects from last scene if they are permanent effects
-	TArray<FGameplayEffectSpec> ActiveEffects = GameInstance->LoadPlayerGASData();
+	float CurrentHealth = 0;
+	TArray<FGameplayEffectSpec> ActiveEffects = GameInstance->LoadPlayerGASData(CurrentHealth);
 	for (FGameplayEffectSpec ActiveEffect : ActiveEffects)
 	{
 		if (ActiveEffect.GetDuration() == FGameplayEffectConstants::INFINITE_DURATION || ActiveEffect.GetDuration() == FGameplayEffectConstants::INSTANT_APPLICATION)
@@ -86,7 +72,30 @@ bool UGASDataPersistenceHandler::LoadGASDataFromGameInstance()
 			PlayerAbilitySystemComponent->ApplyGameplayEffectSpecToSelf(ActiveEffect);
 		}
 	}
-
+	
 	return true;
+}
+
+void UGASDataPersistenceHandler::InitializeDataTracking()
+{
+	// get owner and asc
+	Player = GetOwner();
+	if (UPlayerAbilitySystemComponent* TempASC = Player->GetComponentByClass<UPlayerAbilitySystemComponent>())
+	{
+		PlayerAbilitySystemComponent = TempASC;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Could not find AbilitySystemComponent in GASDataPersistenceHandler on owning Actor %s"), *Player->GetName());
+	}
+
+	// get game instance reference
+	if (UCOLDSNAPGameInstance* TempGameInstance = Cast<UCOLDSNAPGameInstance>(Player->GetGameInstance()))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Game Instance Ref Found"));
+		GameInstance = TempGameInstance;
+	}
+
+	LoadGASDataFromGameInstance();
 }
 

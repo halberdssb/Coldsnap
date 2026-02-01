@@ -31,7 +31,7 @@ public:
 	TArray<FGameplayEffectSpec> GetAllAppliedGameplayEffectSpecs();
 
 protected:
-	TArray<FGameplayEffectSpec> AppliedGameplayEffects;
+	TArray<FGameplayEffectSpec> AppliedUpgradeEffects;
 
 	UFUNCTION()
 	void AddGameplayEffectToAppliedEffectsArray(UAbilitySystemComponent* InASC, const FGameplayEffectSpec& InEffectSpec, FActiveGameplayEffectHandle InEffectHandle);

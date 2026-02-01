@@ -9,6 +9,12 @@
 #include "Components/ActorComponent.h"
 #include "GASDataPersistenceHandler.generated.h"
 
+/*
+ * Component that handles saving and loading GAS data for the player between scenes with the game instance
+ *
+ * Jeff Stevenson
+ * 1.17.25
+ */
 
 UCLASS(Blueprintable, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class COLDSNAP_API UGASDataPersistenceHandler : public UActorComponent
@@ -27,6 +33,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Data Persistence")
 	bool LoadGASDataFromGameInstance();
 
+	UFUNCTION(BlueprintCallable, Category = "Data Persistence")
+	void InitializeDataTracking();
+	
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -34,8 +43,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = General)
 	TObjectPtr<AActor> Player;
 
-	UPlayerAbilitySystemComponent* PlayerAbilitySystemComponent;
+	TObjectPtr<UPlayerAbilitySystemComponent> PlayerAbilitySystemComponent;
 private:	
 
-	UCOLDSNAPGameInstance* GameInstance;
+	TObjectPtr<UCOLDSNAPGameInstance> GameInstance;
 };
