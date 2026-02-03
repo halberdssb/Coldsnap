@@ -26,6 +26,20 @@ public:
 	float Volume = 1;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
 	float Sensitivity = 1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	int32 PlayerXP = 0;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	int32 PlayerLevel = 1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	int32 XPToNextLevel = 100;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	int32 PerkPoints = 0;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool perkOnePurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool perkTwoPurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool perkThreePurchased = false;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
 	UPerkData* PerkData;
