@@ -19,6 +19,7 @@ class COLDSNAP_API UMeleeAttackGameplayAbility : public UGameplayAbility
 public:
 	UMeleeAttackGameplayAbility();
 
+	// attack animation
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attack Animation")
 	UAnimMontage* AttackAnimMontage;
 	
