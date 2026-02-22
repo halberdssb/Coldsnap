@@ -9,10 +9,11 @@
 void UBaseNavigableUI::NativeConstruct()
 {
 	Super::NativeConstruct();
-
+	
 	SetButtonAndSliderArrays();
 	GetFocusColorReferences();
 
+	// all buttons should have same style
 	for (UButton* Button : UIButtons)
 	{
 		Button->SetStyle(ButtonStyle);	
@@ -22,6 +23,7 @@ void UBaseNavigableUI::NativeConstruct()
 void UBaseNavigableUI::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
 	Super::NativeTick(MyGeometry, InDeltaTime);
+	
 	UpdateFocusedButton();
 }
 
@@ -72,7 +74,8 @@ void UBaseNavigableUI::GetFocusColorReferences()
 void UBaseNavigableUI::UpdateFocusedButton()
 {
 	if (!IsInViewport() || UIButtons.Num() <= 0) return;
-	
+
+	// check button focus
 	bool buttonHasFocus = false;
 	bool IsMouseHovered = false;
 	UButton* FocusedButton = nullptr;
@@ -95,6 +98,7 @@ void UBaseNavigableUI::UpdateFocusedButton()
 		}
 	}
 
+	// check slider focus
 	USlider* FocusedSlider = nullptr;
 	for (USlider* Slider : UISliders)
 	{

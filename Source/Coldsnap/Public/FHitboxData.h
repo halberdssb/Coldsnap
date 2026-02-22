@@ -35,22 +35,31 @@ public:
 
 	~FHitboxData();
 
+	// position of hitbox relative to player
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HitboxData")
 	FVector PositionOffset;
+	// height of hitbox capsule collision
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HitboxData")
 	float Height;
+	// radius of hitbox capsule collision
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HitboxData")
 	float Radius;
+	// rotation of hitbox capsule collision
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HitboxData")
 	FRotator Rotation;
+
+	// direction of hitbox knockback - should be/will be used as normalized value
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HitboxData")
 	FVector KnockbackDirection;
+	// magnitude of knockback force
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HitboxData")
 	float KnockbackForce;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HitboxData")
 	float Damage;
+	// time enemies are stunned for by attack
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HitboxData")
 	float StunTime;
+	// force applied to player when hit - used for aerial juggle suspension
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HitboxData")
 	FVector PlayerLaunchForce;
 };

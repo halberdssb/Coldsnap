@@ -23,19 +23,24 @@ public:
 
 	void NativeConstruct() override;
 	void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
-	
+
+	// all focusable buttons for checking focus state
 	UPROPERTY(BlueprintReadWrite, Category = "Navigable UI")
 	TArray<UButton*> UIButtons;
 
+	// all focusable sliders for checking focus state
 	UPROPERTY(BlueprintReadWrite, Category = "Navigable UI")
 	TArray<USlider*> UISliders;
 
+	// button style to override focus colors for
 	UPROPERTY(BlueprintReadWrite, Category = "Navigable UI")
 	FButtonStyle ButtonStyle;
 
+	// color of button when focused
 	UPROPERTY(BlueprintReadWrite, Category = "Navigable UI")
 	FLinearColor FocusedColor;
 
+	// color of button when unfocused
 	UPROPERTY(BlueprintReadWrite, Category = "Navigable UI")
 	FLinearColor UnfocusedColor;
 
