@@ -54,6 +54,7 @@ public:
 	bool T2PerkFourPurchased = false;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
 	bool T2PerkFivePurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
 	bool T3PerkOnePurchased = false;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
 	bool T3PerkTwoPurchased = false;
@@ -63,6 +64,16 @@ public:
 	bool T3PerkFourPurchased = false;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
 	bool T3PerkFivePurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T4PerkOnePurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T4PerkTwoPurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T4PerkThreePurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T4PerkFourPurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T4PerkFivePurchased = false;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
 	UPerkData* PerkData;
