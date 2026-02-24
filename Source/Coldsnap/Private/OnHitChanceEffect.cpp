@@ -5,10 +5,5 @@
 
 void UOnHitChanceEffect::RollOnHitChanceEffeect(FOnHitInfo HitInfo)
 {
-	float RandomSeed = (float)rand() / (float)RAND_MAX;
-
-	if (ProcChance <= RandomSeed)
-	{
-		
-	}
+	// unfinished - proc chance effects moved to ProcChanceGameplayAbility
 }

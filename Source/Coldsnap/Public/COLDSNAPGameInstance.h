@@ -20,13 +20,17 @@ class COLDSNAP_API UCOLDSNAPGameInstance : public UGameInstance
 	GENERATED_BODY()
 
 public:
+	// takes in GAS data (typically from GAS data handler) and saves it to instance
 	void SavePlayerGASData(TArray<FGameplayEffectSpec> InActiveGameplayEffects, float InCurrentHealth);
 	TArray<FGameplayEffectSpec> LoadPlayerGASData(float& OutCurrentHealth);
 
+	// sets current saved health of player
 	UFUNCTION(BlueprintCallable)
 	void SetCurrentHealth(float InCurrentHealth);
+	// returns last saved health of player
 	UFUNCTION(BlueprintCallable)
 	const float GetCurrentHealth();
+	// resets data between runs
 	UFUNCTION(BlueprintCallable)
 	void ResetRunData();
 
