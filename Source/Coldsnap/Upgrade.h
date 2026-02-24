@@ -39,7 +39,7 @@ public:
 	TSubclassOf<class UUpgradeGameplayEffect> torsoGameplayEffect;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<class UUpgradeGameplayEffect> fuelGameplayEffect;
+	TArray<TSubclassOf<class UGameplayEffect>> fuelGameplayEffects;
 
 protected:
 	virtual void BeginPlay() override;
