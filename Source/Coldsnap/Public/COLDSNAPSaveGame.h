@@ -61,6 +61,26 @@ public:
 	bool T2PerkFourPurchased = false;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
 	bool T2PerkFivePurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T3PerkOnePurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T3PerkTwoPurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T3PerkThreePurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T3PerkFourPurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T3PerkFivePurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T4PerkOnePurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T4PerkTwoPurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T4PerkThreePurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T4PerkFourPurchased = false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool T4PerkFivePurchased = false;
 
 	// array for holding all perk data
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
