@@ -7,6 +7,13 @@
 #include "Components/ActorComponent.h"
 #include "AttackHitboxManager.generated.h"
 
+/*
+ * Handles creation and data for player attack hitboxes
+ *
+ * Jeff Stevenson
+ * 11.15.25
+ */
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FHitboxHitActorsDelegate, const TArray<AActor*>&, HitActors, const FHitboxData, HitboxData);
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -41,5 +48,6 @@ protected:
 	// filter for hittable classes - should only be IHittable actors - CURRENTLY UNUSED
 	UClass* classHitFilter;
 
+	// method for applying damage effects, heat gain effects, other effects on hit - currently implemented in blueprints
 	void HitActors(TArray<AActor*> HitActors);
 };

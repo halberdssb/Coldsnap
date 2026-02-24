@@ -27,6 +27,6 @@ void AGenerator::Tick(float DeltaTime)
 
 void AGenerator::Hit_Implementation(float damage, FVector knockbackForce)
 {
-	
+	// implemented in blueprints
 }
 

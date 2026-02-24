@@ -25,6 +25,7 @@ void UHeatAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 {
 	Super::PostGameplayEffectExecute(Data);
 
+	// heat changed
 	if (Data.EvaluatedData.Attribute == GetHeatAttribute())
 	{		
 		float CurrentHeat = GetHeat();
@@ -34,6 +35,8 @@ void UHeatAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 		{
 			CurrentHeat *= GetHeatGainMultiplier();
 		}
+
+		// clamp new heat
 		float NewHeatValue = FMath::Clamp(CurrentHeat, 0, GetMaxHeat());
 		SetHeat(NewHeatValue);
 	}
@@ -46,10 +49,12 @@ void UHeatAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, 
 
 void UHeatAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
 {
+	// heat changed delegate
 	if (Attribute == GetHeatAttribute())
 	{
 		OnHeatChanged.Broadcast(this, OldValue, NewValue);
 	}
+	// max heat changed delegate
 	else if (Attribute == GetMaxHeatAttribute())
 	{
 		OnMaxHeatChanged.Broadcast(this, OldValue, NewValue);

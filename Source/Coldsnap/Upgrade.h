@@ -28,7 +28,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString UpgradeName;
 
-	// All possible selectable effects
+	// All possible selectable effects:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class UUpgradeGameplayEffect> armsGameplayEffect;
 

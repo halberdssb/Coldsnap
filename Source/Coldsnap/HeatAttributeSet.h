@@ -42,7 +42,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData HeatDrainMultiplier;
 
-
+	// GAS attribute accessors
 	ATTRIBUTE_ACCESSORS_BASIC(UHeatAttributeSet, Heat);
 	ATTRIBUTE_ACCESSORS_BASIC(UHeatAttributeSet, MaxHeat);
 	ATTRIBUTE_ACCESSORS_BASIC(UHeatAttributeSet, HeatGainMultiplier);
@@ -54,6 +54,7 @@ public:
 
 	virtual void PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue) override;
 
+	// attribute changed delegates
 	UPROPERTY(BlueprintAssignable)
 	FAttributeChangedEvent OnHeatChanged;
 	UPROPERTY(BlueprintAssignable)
