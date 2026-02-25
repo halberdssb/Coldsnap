@@ -8,6 +8,13 @@
 #include "GameFramework/Actor.h"
 #include "HittableCrate.generated.h"
 
+/*
+ * Crate object that receives attack knockback & applies player juggle physics like enemies for movement/traversal
+ *
+ * Jeff Stevenson
+ * 2.15.26
+ */
+
 UCLASS()
 class COLDSNAP_API AHittableCrate : public APawn, public IHittable, public IKnockbackable
 {

@@ -38,10 +38,12 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData MaxHealth;
 
+	// GAS attribute accessors
 	ATTRIBUTE_ACCESSORS_BASIC(UHealthAttributeSet, Damage);
 	ATTRIBUTE_ACCESSORS_BASIC(UHealthAttributeSet, Health);
 	ATTRIBUTE_ACCESSORS_BASIC(UHealthAttributeSet, MaxHealth);
 
+	// attribute change delegates
 	UPROPERTY(BlueprintAssignable)
 	FAttributeChangedEvent OnHealthChanged;
 	UPROPERTY(BlueprintAssignable)
