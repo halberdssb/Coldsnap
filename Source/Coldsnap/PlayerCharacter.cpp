@@ -49,12 +49,13 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// set up GAS
+	// set up ASC
 	PlayerAbilitySystemComp->InitAbilityActorInfo(this, this);
 	CharacterMovementComp->MaxWalkSpeed = 600;
 
 	SetUpAbilitySystemComponent();
 
+	// set up tracking GAS data for game instance
 	DataPersistenceHandler->InitializeDataTracking();
 }
 

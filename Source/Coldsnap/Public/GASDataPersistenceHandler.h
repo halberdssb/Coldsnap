@@ -27,12 +27,15 @@ public:
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	// saves relevant GAS data (upgrades, stats) to game instance
 	UFUNCTION(BlueprintCallable, Category = "Data Persistence")
 	bool SaveGASDataToGameInstance();
 
+	// loads relevant GAS data (upgrades, stats) to game instance
 	UFUNCTION(BlueprintCallable, Category = "Data Persistence")
 	bool LoadGASDataFromGameInstance();
 
+	// gets necessary references for player GAS attribute tracking
 	UFUNCTION(BlueprintCallable, Category = "Data Persistence")
 	void InitializeDataTracking();
 	

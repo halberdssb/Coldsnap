@@ -42,6 +42,7 @@ void UHealthAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCall
 
 void UHealthAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
+	// health can never be negative or greater than max
 	if (Attribute == GetHealthAttribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0, GetMaxHealth());
@@ -50,10 +51,12 @@ void UHealthAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute
 
 void UHealthAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
 {
+	// health changed delegate
 	if (Attribute == GetHealthAttribute())
 	{
 		OnHealthChanged.Broadcast(this, OldValue, NewValue);
 	}
+	// max health changed - updated health to have same difference from before change
 	else if (Attribute == GetMaxHealthAttribute())
 	{
 		OnMaxHealthChanged.Broadcast(this, OldValue, NewValue);

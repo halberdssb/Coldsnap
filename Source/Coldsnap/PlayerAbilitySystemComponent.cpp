@@ -12,6 +12,7 @@
 
 UPlayerAbilitySystemComponent::UPlayerAbilitySystemComponent()
 {
+	// add upgrade persistence tracking to gameplay effect delegate
 	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UPlayerAbilitySystemComponent::AddGameplayEffectToAppliedEffectsArray);
 }
 

@@ -7,7 +7,10 @@
 #include "HitboxAnimNotify.generated.h"
 
 /**
- * 
+ * Custom anim notify that spawns a single hitbox with hitbox data for the length of the notify
+ *
+ * Jeff Stevenson
+ * 11.26.25
  */
 UCLASS()
 class COLDSNAP_API UHitboxAnimNotify : public UAnimNotifyState
@@ -15,12 +18,11 @@ class COLDSNAP_API UHitboxAnimNotify : public UAnimNotifyState
 	GENERATED_BODY()
 
 public:
+	// time elapsed by notify - currently unused
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "HitboxAnimNotify")
 	float ElapsedNotifyTime;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "HitboxAnimNotify")
-	float AnimationFrameRate = 60;
-
+	// total duration of attack active frames
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "HitboxAnimNotify")
 	float AttackDuration;
 	

@@ -45,7 +45,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UUpgradeGameplayEffect> EquippedEffect;
 
-	// Hash fields for TMap compatability
+	// Hash fields for TMap compatability:
 	
 	// equals and not equals operator implementation
 	bool operator==(const FEquippedUpgradeData& Other) const
