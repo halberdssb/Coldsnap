@@ -76,6 +76,8 @@ public:
 	void UpdateLifeStealChance(const FOnAttributeChangeData& Data);
 	void UpdateLifeStealHealAmount(const FOnAttributeChangeData& Data);
 	void UpdateHealth(const FOnAttributeChangeData& Data);
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float dashDuration = 0.4;
 
 protected:
 	virtual void BeginPlay() override;
@@ -107,8 +109,6 @@ protected:
 
 
 	// Blueprint values changed by GAS attributes
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	float dashDuration = 0.4;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FVector dashForce = FVector(3000,3000,0);
 	FVector baseDashForce = FVector(3000,3000,0);
