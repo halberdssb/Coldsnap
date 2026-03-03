@@ -8,6 +8,7 @@
 #include "IKnockbackable.h"
 #include "ItemDropTable.h"
 #include "Upgrade.h"
+#include "../../../../../../../Program Files/Epic Games/UE_5.6/Engine/Plugins/FX/Niagara/Source/Niagara/Classes/NiagaraSystem.h"
 #include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
 #include "Enemy.generated.h"
@@ -41,6 +42,14 @@ public:
 	// Audio played when hit
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Audio)
 	UAudioComponent* HitAudio;
+
+	// Dust/dirt cloud VFX played when spawned
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = VFX)
+	TObjectPtr<UNiagaraComponent> SpawnVFX;
+	
+	// Sparks VFX played when hit
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = VFX)
+	TObjectPtr<UNiagaraComponent> HitVFX;
 	
 	// GAS properties
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities)
@@ -49,8 +58,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UHealthAttributeSet> HealthSet;
 	
-	virtual void Tick(float DeltaTime) override;
-
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -62,4 +69,11 @@ public:
 	// currently drops on hit becasue death not implemented yet
 	UFUNCTION(BlueprintImplementableEvent, Category = Drops)
 	void DropItemsOnDeath();
+
+private:
+	// handles playing spawn vfx and turning on model at appropriate time to be hidden by vfx
+	void HandleSpawnVisuals();
+
+	// activates the enemy's mesh
+	void EnableMesh();
 };

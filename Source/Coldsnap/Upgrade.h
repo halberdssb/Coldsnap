@@ -28,7 +28,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString UpgradeName;
 
-	// All possible selectable effects
+	// All possible selectable effects:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<class UUpgradeGameplayEffect> armsGameplayEffect;
 
@@ -39,7 +39,7 @@ public:
 	TSubclassOf<class UUpgradeGameplayEffect> torsoGameplayEffect;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<class UUpgradeGameplayEffect> fuelGameplayEffect;
+	TArray<TSubclassOf<class UGameplayEffect>> fuelGameplayEffects;
 
 protected:
 	virtual void BeginPlay() override;

@@ -26,6 +26,8 @@ TSubclassOf<AActor> UItemDropTable::CalculateDroppedItem()
 void UItemDropTable::CalculateLayeredDropWeights()
 {
 	TotalWeight = 0;
+
+	// offset drop weight of each item by all previous items in array so there is no overlap
 	for (int i = 0; i < ItemDropTable.Num(); i++)
 	{
 		ItemDropTable[i].LayeredDropWeight = ItemDropTable[i].DropWeight + TotalWeight;
