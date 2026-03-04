@@ -24,9 +24,7 @@ class COLDSNAP_API UGASDataPersistenceHandler : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UGASDataPersistenceHandler();
-
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
+	
 	// saves relevant GAS data (upgrades, stats) to game instance
 	UFUNCTION(BlueprintCallable, Category = "Data Persistence")
 	bool SaveGASDataToGameInstance();

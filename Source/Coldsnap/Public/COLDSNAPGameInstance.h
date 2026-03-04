@@ -24,6 +24,7 @@ public:
 	void SavePlayerGASData(TArray<FGameplayEffectSpec> InActiveGameplayEffects, float InCurrentHealth);
 	TArray<FGameplayEffectSpec> LoadPlayerGASData(float& OutCurrentHealth);
 
+	void Init() override;
 	// sets current saved health of player
 	UFUNCTION(BlueprintCallable)
 	void SetCurrentHealth(float InCurrentHealth);

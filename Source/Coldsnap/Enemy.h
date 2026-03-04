@@ -50,6 +50,10 @@ public:
 	// Sparks VFX played when hit
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = VFX)
 	TObjectPtr<UNiagaraComponent> HitVFX;
+
+	// Animation montage of hit animations
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Animation)
+	UAnimMontage* HitMontage;
 	
 	// GAS properties
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities)
