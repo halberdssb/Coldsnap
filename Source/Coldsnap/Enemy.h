@@ -8,7 +8,7 @@
 #include "IKnockbackable.h"
 #include "ItemDropTable.h"
 #include "Upgrade.h"
-#include "../../../../../../../Program Files/Epic Games/UE_5.6/Engine/Plugins/FX/Niagara/Source/Niagara/Classes/NiagaraSystem.h"
+#include "NiagaraSystem.h"
 #include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
 #include "Enemy.generated.h"
