@@ -77,10 +77,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData GravityScale;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere)
 	FGameplayAttributeData LifeStealChance;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere)
 	FGameplayAttributeData LifeStealHealAmount;
 
 	// Define attribute accessors for all attributes
