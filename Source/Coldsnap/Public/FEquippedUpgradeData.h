@@ -1,6 +1,7 @@
 ﻿// Copyright 2025 Icebreak Studios. All rights reserved.
 
 #pragma once
+#include "PersistentUpgradeGameplayEffect.h"
 #include "Coldsnap/UpgradeGameplayEffect.h"
 #include "FEquippedUpgradeData.generated.h"
 
@@ -43,7 +44,7 @@ public:
 
 	// equipped effect of upgrade
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<UUpgradeGameplayEffect> EquippedEffect;
+	TSubclassOf<UPersistentUpgradeGameplayEffect> EquippedEffect;
 
 	// Hash fields for TMap compatability:
 	

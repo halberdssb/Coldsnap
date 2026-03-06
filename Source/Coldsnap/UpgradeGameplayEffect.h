@@ -23,7 +23,5 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(MultiLine=true))
 	FString tooltip;
 
-	UUpgradeGameplayEffect(const FObjectInitializer& ObjectInitializer);
-
 private:
 };

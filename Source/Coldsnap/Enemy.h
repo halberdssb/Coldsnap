@@ -8,7 +8,7 @@
 #include "IKnockbackable.h"
 #include "ItemDropTable.h"
 #include "Upgrade.h"
-#include "../../../../../../../Program Files/Epic Games/UE_5.6/Engine/Plugins/FX/Niagara/Source/Niagara/Classes/NiagaraSystem.h"
+#include "NiagaraSystem.h"
 #include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
 #include "Enemy.generated.h"
@@ -50,6 +50,10 @@ public:
 	// Sparks VFX played when hit
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = VFX)
 	TObjectPtr<UNiagaraComponent> HitVFX;
+
+	// Animation montage of hit animations
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Animation)
+	UAnimMontage* HitMontage;
 	
 	// GAS properties
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities)

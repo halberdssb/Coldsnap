@@ -2,6 +2,8 @@
 
 #include "COLDSNAPGameInstance.h"
 
+#include "Coldsnap/PlayerCharacter.h"
+
 // takes in GAS data (typically from GAS data handler) and saves it to instance
 void UCOLDSNAPGameInstance::SavePlayerGASData(TArray<FGameplayEffectSpec> InActiveGameplayEffects, float InCurrentHealth)
 {
@@ -15,6 +17,11 @@ TArray<FGameplayEffectSpec> UCOLDSNAPGameInstance::LoadPlayerGASData(float& OutC
 {
 	OutCurrentHealth = CurrentHealth;
 	return ActiveGameplayEffects;
+}
+
+void UCOLDSNAPGameInstance::Init()
+{
+	Super::Init();
 }
 
 void UCOLDSNAPGameInstance::SetCurrentHealth(float InCurrentHealth)
