@@ -6,14 +6,9 @@
 #include "COLDSNAPGameInstance.h"
 #include "Coldsnap/HealthAttributeSet.h"
 
-// Sets default values for this component's properties
 UGASDataPersistenceHandler::UGASDataPersistenceHandler()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
+	PrimaryComponentTick.bCanEverTick = false;
 }
 
 
@@ -21,15 +16,6 @@ UGASDataPersistenceHandler::UGASDataPersistenceHandler()
 void UGASDataPersistenceHandler::BeginPlay()
 {
 	Super::BeginPlay();
-}
-
-
-
-
-// Called every frame
-void UGASDataPersistenceHandler::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
 // returns if data was successfully saved to game isntance or not
@@ -48,6 +34,7 @@ bool UGASDataPersistenceHandler::SaveGASDataToGameInstance()
 	// if game instance exists in correct type, save active effects to instance to be loaded in next scene
 	float CurrentHealth = PlayerAbilitySystemComponent->GetSet<UHealthAttributeSet>()->GetHealthAttribute().GetNumericValue(PlayerAbilitySystemComponent->GetSet<UHealthAttributeSet>());
 	UE_LOG(LogTemp, Log, TEXT("Current Health: %f"), CurrentHealth);
+	UE_LOG(LogTemp, Log, TEXT("Current applied gameplay effects: %d"), ActiveEffects.Num());
 	GameInstance->SavePlayerGASData(ActiveEffects, CurrentHealth);
 	return true;
 }
@@ -92,7 +79,7 @@ void UGASDataPersistenceHandler::InitializeDataTracking()
 	// get game instance reference
 	if (UCOLDSNAPGameInstance* TempGameInstance = Cast<UCOLDSNAPGameInstance>(Player->GetGameInstance()))
 	{
-		UE_LOG(LogTemp, Error, TEXT("Game Instance Ref Found"));
+		UE_LOG(LogTemp, Log, TEXT("Game Instance Ref Found"));
 		GameInstance = TempGameInstance;
 	}
 

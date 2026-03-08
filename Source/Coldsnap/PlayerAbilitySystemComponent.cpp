@@ -30,6 +30,7 @@ void UPlayerAbilitySystemComponent::AddGameplayEffectToAppliedEffectsArray(UAbil
 	
 	if (TagContainer.HasTag(FGameplayTag::RequestGameplayTag(FName("Upgrade"))))
 	{
+		UE_LOG(LogTemp, Warning, TEXT("%s added to tracked upgrades"), *InEffectSpec.ToSimpleString())
 		AppliedUpgradeEffects.Add(InEffectSpec);
 	}
 }
