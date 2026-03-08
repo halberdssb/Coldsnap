@@ -83,6 +83,9 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	FGameplayAttributeData LifeStealHealAmount;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData MaximumJumps;
+
 	// Define attribute accessors for all attributes
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, WalkSpeed);
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, MaxAcceleration);
