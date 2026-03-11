@@ -77,11 +77,14 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	FGameplayAttributeData GravityScale;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere)
 	FGameplayAttributeData LifeStealChance;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere)
 	FGameplayAttributeData LifeStealHealAmount;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FGameplayAttributeData MaximumJumps;
 
 	// Define attribute accessors for all attributes
 	ATTRIBUTE_ACCESSORS_BASIC(UPlayerMovementAttributeSet, WalkSpeed);
