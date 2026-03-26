@@ -6,10 +6,13 @@
 
 
 ## Screenshots
-![qLKwpaV.md.png](https://iili.io/qLKwpaV.md.png)
-![qLKwy8B.md.png](https://iili.io/qLKwy8B.md.png)
-![qLKN9yP.md.png](https://iili.io/qLKN9yP.md.png)
-![qLKNJu1.md.png](https://iili.io/qLKNJu1.md.png)
+
+<p align="center">
+  <img src="https://iili.io/qLKwpaV.md.png">
+  <img src="https://iili.io/qLKwy8B.md.png">
+  <img src="https://iili.io/qLKN9yP.md.png">
+  <img src="https://iili.io/qLKNJu1.md.png">
+</p>
 
 ## Credits
 
