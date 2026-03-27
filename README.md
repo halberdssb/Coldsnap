@@ -16,6 +16,23 @@ Coldsnap is a third-person, action roguelike. Players pilot a robot that has rea
 - Storage: 10 GB available space
 - Sound Card: Windows Compatible Audio Device.
 
+## Controls
+
+|     Controller    |         Keyboard     |       Action     |
+|:------------------|:---------------------|-----------------:|
+|     A Button      |        Space         |       Jump       |
+|     B Button      |          Q           | Toggle Burn Mode |
+|     X Button      |          E           |  Interact/Equip  |
+|     L Bumper      |        Shift         |  Ability Slot 1  |
+|     R Bumper      |       Ctrl           |  Dash            |
+|    L Trigger      |    Mouse2            |  Heavy Attack    |
+|    R Trigger      |     Mouse1           |  Light Attack    |
+|  L Analog Stick   |     W, A, S, D       |    Movement      |
+|  R Analog Stick   |      Mouse           |      Camera      |
+|     Start         |    Esc, P            |   Pause          |
+|      Select       |        Tab           | Open Inventory   |
+
+
 
 ## Communication
 If you would like to join our playtesting server, it is linked at https://discord.gg/cXMAZpRm
