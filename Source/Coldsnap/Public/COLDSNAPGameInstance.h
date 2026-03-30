@@ -25,6 +25,10 @@ public:
 	TArray<FGameplayEffectSpec> LoadPlayerGASData(float& OutCurrentHealth);
 
 	void Init() override;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Run Data")
+	float RunStartTime;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Run Data")
+	int StagesCleared;
 	// sets current saved health of player
 	UFUNCTION(BlueprintCallable)
 	void SetCurrentHealth(float InCurrentHealth);
