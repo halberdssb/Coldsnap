@@ -28,7 +28,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Run Data")
 	float RunStartTime;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Run Data")
-	float ElapsedRunTime;
+	float TotalFinishedStageTime;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Run Data")
 	int StagesCleared;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Run Data")

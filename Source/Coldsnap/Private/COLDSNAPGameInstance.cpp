@@ -40,7 +40,7 @@ void UCOLDSNAPGameInstance::ResetRunData()
 	CurrentHealth = DefaultHealth;
 	RunStartTime = 0;
 	StagesCleared = 0;
-	ElapsedRunTime = 0;
+	TotalFinishedStageTime = 0;
 	XPGained = 0;
 }
 
