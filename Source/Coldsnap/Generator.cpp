@@ -25,7 +25,7 @@ void AGenerator::Tick(float DeltaTime)
 
 }
 
-void AGenerator::Hit_Implementation(float damage, FVector knockbackForce)
+void AGenerator::Hit_Implementation(bool stunEnemy, float damage, FVector knockbackForce)
 {
 	// implemented in blueprints
 }
