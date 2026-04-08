@@ -31,5 +31,5 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// IHittable implementation - currently implemented in blueprint
-	void Hit_Implementation(float damage, FVector knockbackForce) override;
+	void Hit_Implementation(bool stunEnemy, float damage, FVector knockbackForce) override;
 };
