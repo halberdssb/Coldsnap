@@ -14,7 +14,7 @@ void AHittableCrate::BeginPlay()
 	Super::BeginPlay();
 }
 
-void AHittableCrate::Hit_Implementation(float damage, FVector knockbackForce)
+void AHittableCrate::Hit_Implementation(bool stunEnemy, float damage, FVector knockbackForce)
 {
 	// empty - implemented in blueprints
 	return;

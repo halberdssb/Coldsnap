@@ -21,7 +21,7 @@ public:
 	FHitboxData();
 
 	FHitboxData(const FVector& PositionOffset, float Height, float Radius, const FRotator& Rotation,
-		const FVector& KnockbackDirection, float KnockbackForce, float Damage, float StunTime, FVector PlayerLaunchForce)
+		const FVector& KnockbackDirection, float KnockbackForce, float Damage, bool ShouldStun, float StunTime, FVector PlayerLaunchForce)
 		: PositionOffset(PositionOffset),
 		  Height(Height),
 		  Radius(Radius),
@@ -29,6 +29,7 @@ public:
 		  KnockbackDirection(KnockbackDirection),
 		  KnockbackForce(KnockbackForce),
 		  Damage(Damage),
+		  ShouldStun(ShouldStun),
 		  StunTime(StunTime),
 		  PlayerLaunchForce(PlayerLaunchForce)
 	{}
@@ -56,6 +57,9 @@ public:
 	float KnockbackForce;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HitboxData")
 	float Damage;
+	// should this attack stun enemies?
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HitboxData")
+	bool ShouldStun;
 	// time enemies are stunned for by attack
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HitboxData")
 	float StunTime;
