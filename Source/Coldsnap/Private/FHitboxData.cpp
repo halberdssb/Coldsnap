@@ -12,6 +12,7 @@ FHitboxData::FHitboxData()
 	KnockbackDirection = FVector(0, 0, 0);
 	KnockbackForce = 0; 
 	Damage = 0;
+	ShouldStun = false;
 	StunTime = 0;
 	PlayerLaunchForce = FVector(0, 0, 0);
 }
