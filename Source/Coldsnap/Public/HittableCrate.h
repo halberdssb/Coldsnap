@@ -29,7 +29,7 @@ protected:
 	virtual void BeginPlay() override;
 	
 public:	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UStaticMeshComponent* Mesh;
 	
 	void Hit_Implementation(float damage, FVector knockbackForce) override;
