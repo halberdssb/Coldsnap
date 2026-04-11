@@ -82,6 +82,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
 	bool T4PerkFivePurchased = false;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
+	bool GameCompleted = false;
+
 	// array for holding all perk data
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = SaveGame)
 	UPerkData* PerkData;

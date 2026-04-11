@@ -38,5 +38,9 @@ void UCOLDSNAPGameInstance::ResetRunData()
 {
 	ActiveGameplayEffects.Empty();
 	CurrentHealth = DefaultHealth;
+	RunStartTime = 0;
+	StagesCleared = 0;
+	TotalFinishedStageTime = 0;
+	XPGained = 0;
 }
 

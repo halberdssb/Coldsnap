@@ -25,5 +25,5 @@ class COLDSNAP_API IHittable
 public:
 	// overrideable hit function - called by attacks/hit sources when actor is hit
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Hit")
-	void Hit(float damage, FVector knockbackForce);
+	void Hit(bool stunEnemy, float damage, FVector knockbackForce);
 };
