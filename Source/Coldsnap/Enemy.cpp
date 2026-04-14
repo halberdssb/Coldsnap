@@ -48,7 +48,7 @@ void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 }
 
 // currently unimplemented - should apply damage to health attribute
-void AEnemy::Hit_Implementation(float damage, FVector knockbackForce)
+void AEnemy::Hit_Implementation(bool stunEnemy, float damage, FVector knockbackForce)
 {
 	if (HitAudio)
 	{
