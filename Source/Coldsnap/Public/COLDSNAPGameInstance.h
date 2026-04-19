@@ -46,6 +46,8 @@ public:
 	// resets data between runs
 	UFUNCTION(BlueprintCallable)
 	void ResetRunData();
+	UFUNCTION(BlueprintCallable)
+	void PlayLevelCinematic(UMovieSceneSequencePlayer* MoviePlayer);
 
 private:
 	TArray<FGameplayEffectSpec> ActiveGameplayEffects;
