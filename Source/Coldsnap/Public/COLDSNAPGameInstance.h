@@ -25,6 +25,10 @@ public:
 	TArray<FGameplayEffectSpec> LoadPlayerGASData(float& OutCurrentHealth);
 
 	void Init() override;
+
+	UPROPERTY(EditAnywhere, Category = "Loading Screen")
+	UUserWidget* LoadingScreenWidget;
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Run Data")
 	float RunStartTime;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Run Data")
@@ -47,4 +51,7 @@ private:
 	TArray<FGameplayEffectSpec> ActiveGameplayEffects;
 	float CurrentHealth = 200;
 	const float DefaultHealth = 200;
+
+	void BeginLoadingScreen(const FString& InMapName);
+	void EndLoadingScreen(UWorld* InLoadedWorld);
 };
