@@ -48,11 +48,6 @@ void UCOLDSNAPGameInstance::ResetRunData()
 	XPGained = 0;
 }
 
-void UCOLDSNAPGameInstance::PlayLevelCinematic(UMovieSceneSequencePlayer* MoviePlayer)
-{
-	
-}
-
 void UCOLDSNAPGameInstance::BeginLoadingScreen(const FString& InMapName)
 {
 	// create loading screen info
