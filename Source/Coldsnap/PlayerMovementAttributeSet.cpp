@@ -108,5 +108,10 @@ void UPlayerMovementAttributeSet::PostAttributeChange(const FGameplayAttribute& 
 	}
 }
 
+float UPlayerMovementAttributeSet::GetLifeStealChance() const
+{
+    return LifeStealChance;
+}
+
 
 
