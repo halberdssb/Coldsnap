@@ -39,6 +39,19 @@ void UHeatAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectMo
 		// clamp new heat
 		float NewHeatValue = FMath::Clamp(CurrentHeat, 0, GetMaxHeat());
 		SetHeat(NewHeatValue);
+
+		// handle application of has heat tag if target's heat is above 0
+		FGameplayTag HasHeatTag = FGameplayTag::RequestGameplayTag(FName("Heat.HasHeat"));
+		if (NewHeatValue > 0 && !Data.Target.HasMatchingGameplayTag(HasHeatTag))
+		{
+			FGameplayTagContainer HeatTagContainer;
+			HeatTagContainer.AddTag(HasHeatTag);
+			Data.Target.AddLooseGameplayTags(HeatTagContainer);
+		}
+		else if (NewHeatValue <= 0)
+		{
+			Data.Target.RemoveLooseGameplayTag(HasHeatTag);
+		}
 	}
 }
 
