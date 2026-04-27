@@ -152,8 +152,6 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FAttributeChangedEvent OnLifeStealHealAmountChanged;
 
-	float GetLifeStealChange() const;
-
 private:
 	// default values for attributes
 	float BaseWalkSpeed = 600;
