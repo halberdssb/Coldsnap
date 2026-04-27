@@ -2,12 +2,22 @@
 
 
 #include "ProcChanceGameplayAbility.h"
+#include "AbilitySystemComponent.h"
 #include "FOnHitInfo.h"
+#include "Coldsnap/PlayerMovementAttributeSet.h"
 
 bool UProcChanceGameplayAbility::IsAbilityProcced()
 {
-	// roll random value and see if ability is procced
-	float RandomSeed = (float)rand() / (float)RAND_MAX;
+	const UAbilitySystemComponent* AbilitySystemComponent = GetAbilitySystemComponentFromActorInfo();
+	if (!AbilitySystemComponent)
+	{
+		return false;
+	}
 
-	return RandomSeed <= ProcChance;
+	const float LifeStealChance = AbilitySystemComponent->GetNumericAttribute(
+		UPlayerMovementAttributeSet::GetLifeStealChanceAttribute());
+
+	const int32 RandomNumber = FMath::RandRange(1, 100);
+
+	return RandomNumber <= LifeStealChance;
 }
