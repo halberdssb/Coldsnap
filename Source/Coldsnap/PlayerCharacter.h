@@ -135,6 +135,13 @@ protected:
 	UPROPERTY(BLueprintAssignable)
 	FOnHit OnHit;
 
+	// focus gained/lost events
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnApplicationGainedFocus();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnApplicationLostFocus();
+
 private:
 	FGenericTeamId TeamID;
 
@@ -144,4 +151,6 @@ private:
 	// fires proper GAS events from enhanced input actions
 	void OnAbilityInputPressed(int32 InputID);
 	void OnAbilityInputReleased(int32 InputID);
+
+	void OnApplicationFocusChanged(const bool InIsFocused);
 };

@@ -57,6 +57,9 @@ void APlayerCharacter::BeginPlay()
 
 	// set up tracking GAS data for game instance
 	DataPersistenceHandler->InitializeDataTracking();
+
+	// bind to application focus gain/loss
+	FSlateApplication::Get().OnApplicationActivationStateChanged().AddUObject(this, &APlayerCharacter::OnApplicationFocusChanged);
 }
 
 void APlayerCharacter::SubscribeToAttributeChangeEvents()
@@ -188,6 +191,18 @@ void APlayerCharacter::OnAbilityInputReleased(int32 InputID)
 	if (PlayerAbilitySystemComp)
 	{
 		PlayerAbilitySystemComp->AbilityLocalInputReleased(InputID);
+	}
+}
+
+void APlayerCharacter::OnApplicationFocusChanged(const bool InIsFocused)
+{
+	if (InIsFocused)
+	{
+		OnApplicationGainedFocus();
+	}
+	else
+	{
+		OnApplicationLostFocus();
 	}
 }
 
