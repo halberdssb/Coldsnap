@@ -11,7 +11,7 @@
 AEnemy::AEnemy()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 
 	// set up GAS systems
 	HealthSet = CreateDefaultSubobject<UHealthAttributeSet>(TEXT("Health"));
@@ -68,16 +68,16 @@ void AEnemy::ApplyKnockback_Implementation(FVector knockbackDirection, float kno
 void AEnemy::HandleSpawnVisuals()
 {
 	// enemy shouldn't be visible or move until particles are fully playing
-	GetMesh()->SetVisibility(false);
+	GetMesh()->SetVisibility(true);
 	GetCharacterMovement()->Deactivate();
 	
 	// play spawn vfx and delay model to appear when hidden by vfx cloud
 
 	// spawn particles at bottom of capsule collider (on ground)
-	FVector ParticleLocation = GetCapsuleComponent()->GetComponentLocation();
+	/*FVector ParticleLocation = GetCapsuleComponent()->GetComponentLocation();
 	ParticleLocation.Z -= GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
 	SpawnVFX->SetWorldLocation(ParticleLocation);
-	SpawnVFX->Activate(true);
+	SpawnVFX->Activate(true);*/
 
 	// enable mesh after delay to let particles flare up
 	float delayTime = 0.5f;
@@ -93,7 +93,7 @@ void AEnemy::EnableMesh()
 	GetCharacterMovement()->Activate();
 
 	// disable particles - remove once moved to burst effect
-	SpawnVFX->Deactivate();
+	//SpawnVFX->Deactivate();
 }
 
 

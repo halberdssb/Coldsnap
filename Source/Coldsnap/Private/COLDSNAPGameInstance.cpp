@@ -56,10 +56,13 @@ void UCOLDSNAPGameInstance::BeginLoadingScreen(const FString& InMapName)
 	LoadingScreenData.bAutoCompleteWhenLoadingCompletes = false;
 	LoadingScreenData.MinimumLoadingScreenDisplayTime = 2.0f;
 
-	TSharedPtr<SWidget> LoadingScreenSlatePtr = LoadingScreenWidget->TakeWidget();
-	LoadingScreenData.WidgetLoadingScreen = LoadingScreenSlatePtr;
+	//TSharedPtr<SWidget> LoadingScreenSlatePtr = LoadingScreenWidget->TakeWidget();
+	//LoadingScreenData.WidgetLoadingScreen = LoadingScreenSlatePtr;
+	LoadingScreenData.MoviePaths.Add(TEXT("Loading"));
+	LoadingScreenData.bMoviesAreSkippable = false;
 
 	GetMoviePlayer()->SetupLoadingScreen(LoadingScreenData);
+	GetMoviePlayer()->PlayMovie();
 }
 
 void UCOLDSNAPGameInstance::EndLoadingScreen(UWorld* InLoadedWorld)
